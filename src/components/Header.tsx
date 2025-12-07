@@ -132,15 +132,18 @@ const Header = ({ onOpenSearch, hideHeader = false }: HeaderProps) => {
   if (hideHeader || isCheckoutModalOpen) return null;
 
   return (
-    <motion.header
-      initial={{ y: -20, opacity: 0 }}
-      animate={{ y: 0, opacity: 1 }}
-      transition={{ duration: 0.4 }}
+    <header
       className="fixed top-0 left-0 right-0 z-50"
       role="banner"
     >
-      {/* Modern Background */}
-      <div className="absolute inset-0 bg-black/90 backdrop-blur-xl border-b border-orange-500/10" />
+      {/* Background */}
+      <div 
+        className="absolute inset-0 backdrop-blur-xl border-b"
+        style={{
+          background: 'linear-gradient(135deg, rgba(31, 41, 55, 0.8) 0%, rgba(17, 24, 39, 0.9) 100%)',
+          borderColor: 'rgba(75, 85, 99, 0.3)',
+        }}
+      />
 
       {/* Main Header */}
       <div className={`relative transition-all duration-300 ${isCompact ? 'py-2' : 'py-3'}`}>
@@ -195,7 +198,11 @@ const Header = ({ onOpenSearch, hideHeader = false }: HeaderProps) => {
                             transition={{ duration: 0.2 }}
                             onMouseEnter={() => setIsGamesDropdownOpen(true)}
                             onMouseLeave={() => setIsGamesDropdownOpen(false)}
-                            className="absolute top-full left-0 mt-2 w-64 bg-black/95 rounded-lg shadow-lg border border-orange-500/20 overflow-hidden z-50 backdrop-blur-xl"
+                            className="absolute top-full left-0 mt-2 w-64 rounded-lg shadow-lg overflow-hidden z-50 backdrop-blur-xl"
+                            style={{
+                              background: 'linear-gradient(135deg, rgba(31, 41, 55, 0.95) 0%, rgba(17, 24, 39, 0.95) 100%)',
+                              border: '1px solid rgba(75, 85, 99, 0.3)',
+                            }}
                           >
                             <div className="p-2 max-h-[400px] overflow-y-auto">
                               <Link
@@ -337,7 +344,11 @@ const Header = ({ onOpenSearch, hideHeader = false }: HeaderProps) => {
                           animate={{ opacity: 1, y: 0 }}
                           exit={{ opacity: 0, y: 10 }}
                           transition={{ duration: 0.2 }}
-                          className="absolute right-0 mt-2 w-64 bg-black/95 rounded-lg shadow-lg border border-orange-500/20 overflow-hidden z-50 backdrop-blur-xl"
+                          className="absolute right-0 mt-2 w-64 rounded-lg shadow-lg overflow-hidden z-50 backdrop-blur-xl"
+                          style={{
+                            background: 'linear-gradient(135deg, rgba(31, 41, 55, 0.95) 0%, rgba(17, 24, 39, 0.95) 100%)',
+                            border: '1px solid rgba(75, 85, 99, 0.3)',
+                          }}
                           role="menu"
                         >
                           {/* Compact User Header */}
@@ -443,7 +454,10 @@ const Header = ({ onOpenSearch, hideHeader = false }: HeaderProps) => {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.2 }}
-              className="md:hidden fixed inset-0 z-40 bg-black/70 backdrop-blur-sm"
+              className="md:hidden fixed inset-0 z-40 backdrop-blur-sm"
+              style={{
+                background: 'rgba(0, 0, 0, 0.7)',
+              }}
             onClick={() => setIsMenuOpen(false)}
           >
             <motion.nav
@@ -451,7 +465,11 @@ const Header = ({ onOpenSearch, hideHeader = false }: HeaderProps) => {
               animate={{ x: 0 }}
               exit={{ x: '100%' }}
               transition={{ type: 'spring', damping: 25, stiffness: 200 }}
-              className="absolute right-0 top-0 bottom-0 w-72 bg-black/95 shadow-xl border-l border-orange-500/20 backdrop-blur-xl"
+              className="absolute right-0 top-0 bottom-0 w-72 shadow-xl border-l backdrop-blur-xl"
+              style={{
+                background: 'linear-gradient(135deg, rgba(31, 41, 55, 0.95) 0%, rgba(17, 24, 39, 0.95) 100%)',
+                borderColor: 'rgba(75, 85, 99, 0.3)',
+              }}
               onClick={(e) => e.stopPropagation()}
               aria-label="Mobile"
             >
@@ -669,7 +687,7 @@ const Header = ({ onOpenSearch, hideHeader = false }: HeaderProps) => {
           </motion.div>
         )}
       </AnimatePresence>
-    </motion.header>
+    </header>
   );
 };
 

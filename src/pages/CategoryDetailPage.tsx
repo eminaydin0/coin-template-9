@@ -6,7 +6,6 @@ import {
   ArrowLeft,
   ChevronRight,
   Home,
-  Tag,
   ChevronLeft,
   MoreHorizontal,
   Star,
@@ -137,35 +136,22 @@ const CategoryDetailPage = () => {
     <div className="min-h-screen pt-20 relative overflow-hidden gaming-scrollbar">
       <CommonBackground />
       
-      {/* Animated Glow Effects */}
-      <div className="absolute top-40 left-1/4 w-96 h-96 bg-orange-500/5 rounded-full blur-3xl pointer-events-none" />
-      <div className="absolute bottom-40 right-1/4 w-96 h-96 bg-orange-600/5 rounded-full blur-3xl pointer-events-none" />
+      {/* Background Glow */}
+      <div className="absolute -top-20 left-1/2 -translate-x-1/2 w-96 h-96 bg-orange-500/5 rounded-full blur-3xl pointer-events-none" />
       
       <div className="w-full relative z-10">
-        {/* Enhanced Header */}
-        <motion.div 
-          className="w-full mb-10 px-4 sm:px-6 lg:px-8"
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-        >
-          <div className="max-w-7xl mx-auto">
+        {/* Header */}
+        <div className="w-full mb-10 px-4 sm:px-6 lg:px-8">
+          <div className="w-full">
             <div 
               className="rounded-2xl p-8 relative overflow-hidden"
               style={{
-                background: 'linear-gradient(135deg, rgba(17, 24, 39, 0.9) 0%, rgba(31, 41, 55, 0.8) 100%)',
-                border: '1px solid rgba(249, 115, 22, 0.2)',
-                boxShadow: '0 20px 60px rgba(0, 0, 0, 0.3)',
-                backdropFilter: 'blur(20px)',
+                background: 'linear-gradient(135deg, rgba(31, 41, 55, 0.8) 0%, rgba(17, 24, 39, 0.9) 100%)',
+                border: '1px solid rgba(75, 85, 99, 0.3)',
+                backdropFilter: 'blur(10px)',
+                boxShadow: '0 8px 32px rgba(0, 0, 0, 0.4)',
               }}
             >
-              {/* Animated Background Pattern */}
-              <div className="absolute inset-0 opacity-5">
-                <div className="absolute inset-0" style={{
-                  backgroundImage: 'radial-gradient(circle at 2px 2px, rgb(249, 115, 22) 1px, transparent 0)',
-                  backgroundSize: '40px 40px',
-                }} />
-              </div>
 
               {/* Breadcrumb */}
               <div className="flex items-center flex-wrap gap-2 text-sm mb-6 relative z-10">
@@ -190,37 +176,25 @@ const CategoryDetailPage = () => {
               {/* Title Section */}
               <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6 relative z-10">
                 <div className="flex items-center gap-4">
-                  <motion.div 
-                    className="relative"
-                    whileHover={{ scale: 1.05, rotate: 5 }}
-                    whileTap={{ scale: 0.95 }}
-                  >
+                  <div className="relative">
                     <div 
-                      className="w-16 h-16 rounded-2xl flex items-center justify-center relative overflow-hidden"
+                      className="w-14 h-14 rounded-2xl flex items-center justify-center"
                       style={{
                         background: 'linear-gradient(135deg, rgba(249, 115, 22, 0.2) 0%, rgba(234, 88, 12, 0.15) 100%)',
-                        border: '1px solid rgba(249, 115, 22, 0.4)',
-                        boxShadow: '0 8px 32px rgba(249, 115, 22, 0.2)',
+                        border: '1px solid rgba(249, 115, 22, 0.3)',
+                        boxShadow: '0 8px 32px rgba(249, 115, 22, 0.15)',
                       }}
                     >
-                      <Grid3x3 className="h-7 w-7 text-orange-400 relative z-10" />
-                      <motion.div
-                        className="absolute inset-0 bg-gradient-to-br from-orange-400/30 to-transparent"
-                        animate={{ 
-                          scale: [1, 1.2, 1],
-                          opacity: [0.3, 0.6, 0.3]
-                        }}
-                        transition={{ duration: 2, repeat: Infinity }}
-                      />
+                      <Grid3x3 className="h-6 w-6 text-orange-400" />
                     </div>
-                  </motion.div>
+                  </div>
                   
                   <div>
-                    <h1 className="text-3xl sm:text-4xl font-black text-white tracking-tight mb-2">
+                    <h1 className="text-2xl font-black text-white tracking-tight mb-1">
                       {category.name}
                     </h1>
                     {category.description && (
-                      <p className="text-gray-400 text-sm max-w-2xl">
+                      <p className="text-gray-400 text-sm font-medium">
                         {category.description}
                       </p>
                     )}
@@ -229,54 +203,49 @@ const CategoryDetailPage = () => {
 
                 {/* Stats Badge */}
                 <div className="flex items-center gap-3">
-                  <motion.div
-                    className="px-5 py-3 rounded-xl flex items-center gap-2"
+                  <div
+                    className="px-4 py-2 rounded-xl flex items-center gap-2"
                     style={{
                       background: 'rgba(249, 115, 22, 0.15)',
                       border: '1px solid rgba(249, 115, 22, 0.3)',
                     }}
-                    whileHover={{ scale: 1.05 }}
                   >
-                    <Sparkles className="h-5 w-5 text-orange-400" />
-                    <span className="text-orange-300 text-base font-bold">
+                    <Sparkles className="h-4 w-4 text-orange-400" />
+                    <span className="text-orange-300 text-sm font-bold">
                       {products.length} Ürün
                     </span>
-                  </motion.div>
+                  </div>
                   {products.length > itemsPerPage && (
-                    <motion.div
-                      className="px-5 py-3 rounded-xl"
+                    <div
+                      className="px-4 py-2 rounded-xl"
                       style={{
                         background: 'rgba(75, 85, 99, 0.2)',
                         border: '1px solid rgba(75, 85, 99, 0.3)',
                       }}
-                      whileHover={{ scale: 1.05 }}
                     >
-                      <span className="text-gray-300 text-base font-bold">
+                      <span className="text-gray-300 text-sm font-bold">
                         Sayfa {currentPage}/{totalPages}
                       </span>
-                    </motion.div>
+                    </div>
                   )}
                 </div>
               </div>
             </div>
           </div>
-        </motion.div>
+        </div>
 
         {/* Products Grid */}
         <section className="relative py-4">
           <div className="px-4 sm:px-6 lg:px-8">
-            <div className="max-w-7xl mx-auto">
+            <div className="w-full">
               {products.length === 0 ? (
-                <motion.div 
-                  initial={{ opacity: 0, scale: 0.95 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ duration: 0.6 }}
+                <div 
                   className="text-center py-24 rounded-2xl"
                   style={{
-                    background: 'linear-gradient(135deg, rgba(17, 24, 39, 0.9) 0%, rgba(31, 41, 55, 0.8) 100%)',
-                    border: '1px solid rgba(249, 115, 22, 0.2)',
-                    boxShadow: '0 20px 60px rgba(0, 0, 0, 0.3)',
-                    backdropFilter: 'blur(20px)',
+                    background: 'linear-gradient(135deg, rgba(31, 41, 55, 0.8) 0%, rgba(17, 24, 39, 0.9) 100%)',
+                    border: '1px solid rgba(75, 85, 99, 0.3)',
+                    backdropFilter: 'blur(10px)',
+                    boxShadow: '0 8px 32px rgba(0, 0, 0, 0.4)',
                   }}
                 >
                   <div className="w-24 h-24 rounded-3xl bg-gradient-to-br from-orange-500/20 to-orange-600/10 flex items-center justify-center mx-auto mb-6">
@@ -286,11 +255,11 @@ const CategoryDetailPage = () => {
                     Henüz Ürün Yok
                   </h3>
                   <p className="text-gray-400 text-lg">Yakında bu kategoriye yeni ürünler eklenecektir.</p>
-                </motion.div>
+                </div>
               ) : (
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-                  {currentProducts.map((product, index) => (
-                    <ProductCard key={product.id} product={product} index={index} />
+                  {currentProducts.map((product) => (
+                    <ProductCard key={product.id} product={product} />
                   ))}
                 </div>
               )}
@@ -298,24 +267,19 @@ const CategoryDetailPage = () => {
           </div>
         </section>
 
-        {/* Enhanced Pagination */}
+        {/* Pagination */}
         {products.length > itemsPerPage && (
-          <motion.section 
-            className="relative py-8"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-          >
+          <section className="relative py-8">
             <div className="px-4 sm:px-6 lg:px-8">
-              <div className="max-w-7xl mx-auto">
+              <div className="w-full">
                 <div className="flex justify-center">
                   <div 
                     className="flex items-center gap-3 rounded-2xl p-4"
                     style={{
-                      background: 'linear-gradient(135deg, rgba(17, 24, 39, 0.9) 0%, rgba(31, 41, 55, 0.8) 100%)',
-                      border: '1px solid rgba(249, 115, 22, 0.2)',
-                      boxShadow: '0 10px 40px rgba(0, 0, 0, 0.3)',
-                      backdropFilter: 'blur(20px)',
+                      background: 'linear-gradient(135deg, rgba(31, 41, 55, 0.8) 0%, rgba(17, 24, 39, 0.9) 100%)',
+                      border: '1px solid rgba(75, 85, 99, 0.3)',
+                      backdropFilter: 'blur(10px)',
+                      boxShadow: '0 8px 32px rgba(0, 0, 0, 0.4)',
                     }}
                   >
                     {/* Previous Button */}
@@ -417,7 +381,7 @@ const CategoryDetailPage = () => {
                 </div>
               </div>
             </div>
-          </motion.section>
+          </section>
         )}
 
         <CallToActionSection />
@@ -471,159 +435,147 @@ const PageButton = ({
   );
 };
 
-const ProductCard = ({ product, index }: { product: Product; index: number }) => {
+const ProductCard = ({ product }: { product: Product }) => {
   const [isHovered, setIsHovered] = useState(false);
   const [imageError, setImageError] = useState(false);
 
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.4, delay: index * 0.05 }}
+    <Link 
+      to={`/epin/${product.slug}`}
+      className="block group h-full"
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
     >
-      <Link 
-        to={`/epin/${product.slug}`}
-        className="block group h-full"
-        onMouseEnter={() => setIsHovered(true)}
-        onMouseLeave={() => setIsHovered(false)}
+      <motion.div
+        className="relative overflow-hidden h-full flex flex-col rounded-2xl"
+        style={{
+          background: 'linear-gradient(135deg, rgba(31, 41, 55, 0.8) 0%, rgba(17, 24, 39, 0.9) 100%)',
+          border: '1px solid rgba(75, 85, 99, 0.3)',
+          backdropFilter: 'blur(10px)',
+        }}
+        whileHover={{ 
+          y: -8,
+          boxShadow: '0 20px 60px rgba(249, 115, 22, 0.3)',
+          borderColor: 'rgba(249, 115, 22, 0.5)',
+        }}
+        transition={{ duration: 0.3 }}
       >
-        <motion.div
-          className="relative overflow-hidden h-full flex flex-col rounded-2xl"
-          style={{
-            background: 'linear-gradient(135deg, rgba(31, 41, 55, 0.8) 0%, rgba(17, 24, 39, 0.9) 100%)',
-            border: '1px solid rgba(75, 85, 99, 0.3)',
-            backdropFilter: 'blur(10px)',
-          }}
-          whileHover={{ 
-            y: -8,
-            boxShadow: '0 20px 60px rgba(249, 115, 22, 0.3)',
-            borderColor: 'rgba(249, 115, 22, 0.5)',
-          }}
-          transition={{ duration: 0.3 }}
-        >
-          {/* Product Image */}
-          <div className="relative h-52 overflow-hidden rounded-t-2xl">
-            <AnimatePresence mode="wait">
-              {product.url && !imageError ? (
-                <motion.img
-                  src={product.url}
-                  alt={product.name}
-                  className="w-full h-full object-cover"
-                  initial={{ scale: 1 }}
-                  animate={{ scale: isHovered ? 1.08 : 1 }}
-                  transition={{ duration: 0.4 }}
-                  onError={() => setImageError(true)}
-                  loading="lazy"
-                />
-              ) : (
-                <div className="w-full h-full bg-gradient-to-br from-orange-500/30 via-orange-600/20 to-orange-700/10 flex items-center justify-center">
-                  <Gamepad2 className="h-20 w-20 text-orange-300/60" />
-                </div>
-              )}
-            </AnimatePresence>
-
-            {/* Gradient Overlay */}
-            <div className="absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/50 to-transparent" />
-            
-            {/* Badges */}
-            {product.isPopular && (
-              <motion.div
-                className="absolute top-3 right-3 rounded-lg px-3 py-1.5 z-10 flex items-center gap-1.5"
-                style={{
-                  background: 'rgba(249, 115, 22, 0.9)',
-                  border: '1px solid rgba(251, 146, 60, 0.5)',
-                }}
-                initial={{ opacity: 0, x: 10 }}
-                animate={{ opacity: 1, x: 0 }}
-              >
-                <TrendingUp className="h-3.5 w-3.5 text-white" />
-                <span className="text-white text-xs font-bold">POPÜLER</span>
-              </motion.div>
-            )}
-
-            {product.rating && (
-              <motion.div
-                className="absolute top-3 left-3 rounded-lg px-3 py-1.5 z-10 flex items-center gap-1.5"
-                style={{
-                  background: 'rgba(0, 0, 0, 0.6)',
-                  border: '1px solid rgba(249, 115, 22, 0.4)',
-                  backdropFilter: 'blur(12px)',
-                }}
-                initial={{ opacity: 0, x: -10 }}
-                animate={{ opacity: 1, x: 0 }}
-              >
-                <Star className="h-4 w-4 text-orange-400 fill-orange-400" />
-                <span className="text-white text-sm font-bold">{product.rating}</span>
-              </motion.div>
-            )}
-
-            {/* Hover Overlay */}
-            <motion.div
-              className="absolute inset-0 bg-orange-500/0 pointer-events-none"
-              animate={{
-                background: isHovered ? 'rgba(249, 115, 22, 0.1)' : 'rgba(249, 115, 22, 0)',
-              }}
-              transition={{ duration: 0.3 }}
-            />
-          </div>
-
-          {/* Content */}
-          <div className="p-5 flex-1 flex flex-col">
-            <h3 className="text-white font-bold text-lg mb-2 line-clamp-2 leading-snug transition-colors duration-300"
-                style={{ color: isHovered ? 'rgb(251, 146, 60)' : 'rgb(255, 255, 255)' }}>
-              {product.name}
-            </h3>
-            
-            {product.description && (
-              <p className="text-gray-400 text-sm mb-4 line-clamp-2 leading-relaxed">
-                {product.description}
-              </p>
-            )}
-
-            {/* Price & Action */}
-            <div className="mt-auto pt-4 border-t" style={{ borderColor: 'rgba(75, 85, 99, 0.3)' }}>
-              <div className="flex items-center justify-between">
-                <div className="flex flex-col">
-                  {product.originalPrice && (
-                    <span className="text-xs text-gray-500 line-through mb-1">
-                      {product.originalPrice}
-                    </span>
-                  )}
-                  <span className="text-orange-400 font-black text-xl">
-                    {product.price}
-                  </span>
-                </div>
-                
-                <motion.div
-                  className="px-5 py-2.5 rounded-xl flex items-center gap-2 text-sm font-bold"
-                  style={{
-                    background: 'rgba(249, 115, 22, 0.15)',
-                    border: '1px solid rgba(249, 115, 22, 0.3)',
-                    color: 'rgb(251, 146, 60)',
-                  }}
-                  whileHover={{ 
-                    scale: 1.05,
-                    background: 'rgba(249, 115, 22, 0.25)',
-                  }}
-                  whileTap={{ scale: 0.95 }}
-                >
-                  <Zap className="h-4 w-4" />
-                  <span>İncele</span>
-                </motion.div>
+        {/* Product Image */}
+        <div className="relative h-48 overflow-hidden rounded-t-2xl">
+          <AnimatePresence>
+            {product.url && !imageError ? (
+              <motion.img
+                src={product.url}
+                alt={product.name}
+                className="w-full h-full object-cover"
+                initial={{ scale: 1 }}
+                animate={{ scale: isHovered ? 1.08 : 1 }}
+                transition={{ duration: 0.4 }}
+                onError={() => setImageError(true)}
+                loading="lazy"
+              />
+            ) : (
+              <div className="w-full h-full bg-gradient-to-br from-orange-500/30 via-orange-600/20 to-orange-700/10 flex items-center justify-center">
+                <Gamepad2 className="h-16 w-16 text-orange-300/60" />
               </div>
+            )}
+          </AnimatePresence>
+
+          {/* Gradient Overlay */}
+          <div className="absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/50 to-transparent" />
+          
+          {/* Badges */}
+          {product.isPopular && (
+            <motion.div
+              className="absolute top-3 right-3 rounded-lg px-3 py-1.5 z-10 flex items-center gap-1.5"
+              style={{
+                background: 'rgba(249, 115, 22, 0.9)',
+                border: '1px solid rgba(251, 146, 60, 0.5)',
+              }}
+              initial={{ opacity: 0, x: 10 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: 0.1 }}
+            >
+              <TrendingUp className="h-3.5 w-3.5 text-white" />
+              <span className="text-white text-xs font-bold">TREND</span>
+            </motion.div>
+          )}
+
+          {product.rating && (
+            <motion.div
+              className="absolute top-3 left-3 rounded-lg px-3 py-1.5 z-10 flex items-center gap-1.5"
+              style={{
+                background: 'rgba(0, 0, 0, 0.6)',
+                border: '1px solid rgba(249, 115, 22, 0.4)',
+                backdropFilter: 'blur(12px)',
+              }}
+              initial={{ opacity: 0, x: -10 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: 0.1 }}
+            >
+              <Star className="h-4 w-4 text-orange-400 fill-orange-400" />
+              <span className="text-white text-sm font-bold">{product.rating}</span>
+            </motion.div>
+          )}
+
+          {/* Hover Overlay */}
+          <motion.div
+            className="absolute inset-0 bg-orange-500/0 pointer-events-none"
+            animate={{
+              background: isHovered ? 'rgba(249, 115, 22, 0.1)' : 'rgba(249, 115, 22, 0)',
+            }}
+            transition={{ duration: 0.3 }}
+          />
+        </div>
+
+        {/* Content */}
+        <div className="p-4 flex-1 flex flex-col">
+          <h3 className="text-white font-bold text-base mb-auto line-clamp-2 leading-snug transition-colors duration-300"
+              style={{ color: isHovered ? 'rgb(251, 146, 60)' : 'rgb(255, 255, 255)' }}>
+            {product.name}
+          </h3>
+
+          {/* Price Section */}
+          <div className="mt-4 pt-4 border-t" style={{ borderColor: 'rgba(75, 85, 99, 0.3)' }}>
+            <div className="flex items-center justify-between">
+              <div className="flex flex-col">
+                {product.originalPrice && (
+                  <span className="text-gray-500 text-xs line-through mb-0.5">
+                    {product.originalPrice}
+                  </span>
+                )}
+                <span className="text-orange-400 font-black text-lg">
+                  {product.price}
+                </span>
+              </div>
+              
+              <motion.div
+                className="w-10 h-10 rounded-lg flex items-center justify-center"
+                style={{
+                  background: 'rgba(249, 115, 22, 0.15)',
+                  border: '1px solid rgba(249, 115, 22, 0.3)',
+                }}
+                whileHover={{ 
+                  scale: 1.1,
+                  background: 'rgba(249, 115, 22, 0.25)',
+                }}
+                whileTap={{ scale: 0.95 }}
+              >
+                <Zap className="h-5 w-5 text-orange-400" />
+              </motion.div>
             </div>
           </div>
+        </div>
 
-          {/* Shine Effect */}
-          <motion.div
-            className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent pointer-events-none"
-            initial={{ x: '-100%' }}
-            animate={{ x: isHovered ? '100%' : '-100%' }}
-            transition={{ duration: 0.6 }}
-          />
-        </motion.div>
-      </Link>
-    </motion.div>
+        {/* Shine Effect on Hover */}
+        <motion.div
+          className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent pointer-events-none"
+          initial={{ x: '-100%' }}
+          animate={{ x: isHovered ? '100%' : '-100%' }}
+          transition={{ duration: 0.6 }}
+        />
+      </motion.div>
+    </Link>
   );
 };
 

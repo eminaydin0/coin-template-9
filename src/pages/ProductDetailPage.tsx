@@ -27,25 +27,12 @@ interface ProductResponse {
   };
 }
 
-const fadeIn = {
-  hidden: { opacity: 0, y: 20 },
-  show: { 
-    opacity: 1, 
-    y: 0, 
-    transition: { 
-      duration: 0.6, 
-      ease: [0.22, 1, 0.36, 1]
-    } 
-  },
-};
-
 const ProductDetailPage = () => {
   const { slug } = useParams<{ slug: string }>();
   const navigate = useNavigate();
   const [productData, setProductData] = useState<ProductResponse | null>(null);
   const [loading, setLoading] = useState(true);
   const [imgError, setImgError] = useState(false);
-  const [imageLoaded, setImageLoaded] = useState(false);
   const { addItem } = useCart();
 
   useEffect(() => {
@@ -103,16 +90,13 @@ const ProductDetailPage = () => {
         <SEOHead />
         <div className="min-h-screen pt-20 flex items-center justify-center relative overflow-hidden px-4">
           <CommonBackground />
-          <motion.div 
-            variants={fadeIn} 
-            initial="hidden" 
-            animate="show" 
+          <div 
             className="text-center p-10 rounded-2xl border max-w-md mx-auto"
             style={{
-              background: 'linear-gradient(135deg, rgba(17, 24, 39, 0.9) 0%, rgba(31, 41, 55, 0.8) 100%)',
-              border: '1px solid rgba(249, 115, 22, 0.2)',
-              boxShadow: '0 20px 60px rgba(0, 0, 0, 0.5)',
-              backdropFilter: 'blur(20px)',
+              background: 'linear-gradient(135deg, rgba(31, 41, 55, 0.8) 0%, rgba(17, 24, 39, 0.9) 100%)',
+              border: '1px solid rgba(75, 85, 99, 0.3)',
+              backdropFilter: 'blur(10px)',
+              boxShadow: '0 8px 32px rgba(0, 0, 0, 0.4)',
             }}
           >
             <div className="w-20 h-20 rounded-2xl bg-gradient-to-br from-orange-500/20 to-orange-600/10 flex items-center justify-center mx-auto mb-6">
@@ -129,7 +113,7 @@ const ProductDetailPage = () => {
                 Ana Sayfaya Dön
               </Link>
             </motion.div>
-          </motion.div>
+          </div>
         </div>
       </>
     );
@@ -141,35 +125,22 @@ const ProductDetailPage = () => {
       <div className="min-h-screen pt-20 relative overflow-hidden gaming-scrollbar">
         <CommonBackground />
         
-        {/* Animated Glow Effects */}
-        <div className="absolute top-40 left-1/4 w-96 h-96 bg-orange-500/5 rounded-full blur-3xl pointer-events-none" />
-        <div className="absolute bottom-40 right-1/4 w-96 h-96 bg-orange-600/5 rounded-full blur-3xl pointer-events-none" />
+        {/* Background Glow */}
+        <div className="absolute -top-20 left-1/2 -translate-x-1/2 w-96 h-96 bg-orange-500/5 rounded-full blur-3xl pointer-events-none" />
         
         <div className="w-full relative z-10">
-          {/* Enhanced Header */}
-          <motion.div 
-            className="w-full mb-10 px-4 sm:px-6 lg:px-8"
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-          >
-            <div className="max-w-7xl mx-auto">
+          {/* Header */}
+          <div className="w-full mb-10 px-4 sm:px-6 lg:px-8">
+            <div className="w-full">
               <div 
                 className="rounded-2xl p-8 relative overflow-hidden"
                 style={{
-                  background: 'linear-gradient(135deg, rgba(17, 24, 39, 0.9) 0%, rgba(31, 41, 55, 0.8) 100%)',
-                  border: '1px solid rgba(249, 115, 22, 0.2)',
-                  boxShadow: '0 20px 60px rgba(0, 0, 0, 0.3)',
-                  backdropFilter: 'blur(20px)',
+                  background: 'linear-gradient(135deg, rgba(31, 41, 55, 0.8) 0%, rgba(17, 24, 39, 0.9) 100%)',
+                  border: '1px solid rgba(75, 85, 99, 0.3)',
+                  backdropFilter: 'blur(10px)',
+                  boxShadow: '0 8px 32px rgba(0, 0, 0, 0.4)',
                 }}
               >
-                {/* Animated Background Pattern */}
-                <div className="absolute inset-0 opacity-5">
-                  <div className="absolute inset-0" style={{
-                    backgroundImage: 'radial-gradient(circle at 2px 2px, rgb(249, 115, 22) 1px, transparent 0)',
-                    backgroundSize: '40px 40px',
-                  }} />
-                </div>
 
                 {/* Breadcrumb */}
                 <div className="flex items-center flex-wrap gap-2 text-sm mb-6 relative z-10">
@@ -201,36 +172,24 @@ const ProductDetailPage = () => {
                 {/* Title Section */}
                 <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-6 relative z-10">
                   <div className="flex items-center gap-4">
-                    <motion.div 
-                      className="relative"
-                      whileHover={{ scale: 1.05, rotate: 5 }}
-                      whileTap={{ scale: 0.95 }}
-                    >
+                    <div className="relative">
                       <div 
-                        className="w-16 h-16 rounded-2xl flex items-center justify-center relative overflow-hidden"
+                        className="w-14 h-14 rounded-2xl flex items-center justify-center"
                         style={{
                           background: 'linear-gradient(135deg, rgba(249, 115, 22, 0.2) 0%, rgba(234, 88, 12, 0.15) 100%)',
-                          border: '1px solid rgba(249, 115, 22, 0.4)',
-                          boxShadow: '0 8px 32px rgba(249, 115, 22, 0.2)',
+                          border: '1px solid rgba(249, 115, 22, 0.3)',
+                          boxShadow: '0 8px 32px rgba(249, 115, 22, 0.15)',
                         }}
                       >
-                        <Tag className="h-7 w-7 text-orange-400 relative z-10" />
-                        <motion.div
-                          className="absolute inset-0 bg-gradient-to-br from-orange-400/30 to-transparent"
-                          animate={{ 
-                            scale: [1, 1.2, 1],
-                            opacity: [0.3, 0.6, 0.3]
-                          }}
-                          transition={{ duration: 2, repeat: Infinity }}
-                        />
+                        <Tag className="h-6 w-6 text-orange-400" />
                       </div>
-                    </motion.div>
+                    </div>
                     
                     <div>
-                      <h1 className="text-3xl sm:text-4xl font-black text-white tracking-tight mb-2">
+                      <h1 className="text-2xl font-black text-white tracking-tight mb-1">
                         {product.name}
                       </h1>
-                      <div className="flex items-center gap-2 text-sm text-gray-400">
+                      <div className="flex items-center gap-2 text-sm text-gray-400 font-medium">
                         <Award className="h-4 w-4 text-orange-400" />
                         <span>Premium Dijital İçerik</span>
                       </div>
@@ -239,55 +198,48 @@ const ProductDetailPage = () => {
 
                   {/* Status Badges */}
                   <div className="flex items-center gap-2">
-                    <motion.div
+                    <div
                       className="px-4 py-2 rounded-xl flex items-center gap-2"
                       style={{
                         background: 'rgba(34, 197, 94, 0.15)',
                         border: '1px solid rgba(34, 197, 94, 0.3)',
                       }}
-                      whileHover={{ scale: 1.05 }}
                     >
-                      <div className="w-2 h-2 rounded-full bg-green-400 animate-pulse" />
+                      <div className="w-2 h-2 rounded-full bg-green-400" />
                       <span className="text-green-400 text-sm font-bold">STOKTA</span>
-                    </motion.div>
-                    <motion.div
+                    </div>
+                    <div
                       className="px-4 py-2 rounded-xl"
                       style={{
                         background: 'rgba(249, 115, 22, 0.15)',
                         border: '1px solid rgba(249, 115, 22, 0.3)',
                       }}
-                      whileHover={{ scale: 1.05 }}
                     >
                       <span className="text-orange-400 text-sm font-bold">ANLIK TESLİMAT</span>
-                    </motion.div>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
-          </motion.div>
+          </div>
 
           {/* Product Details Section */}
           <section className="relative py-4">
             <div className="px-4 sm:px-6 lg:px-8">
-              <div className="max-w-7xl mx-auto">
+              <div className="w-full">
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
                   
                   {/* Left Column - Product Image & Features */}
                   <div className="lg:col-span-2 space-y-8">
                     {/* Product Image */}
-                    <motion.div
-                      variants={fadeIn}
-                      initial="hidden"
-                      animate="show"
-                      className="relative group"
-                    >
+                    <div className="relative group">
                       <div 
                         className="relative rounded-2xl overflow-hidden"
                         style={{
-                          background: 'linear-gradient(135deg, rgba(17, 24, 39, 0.9) 0%, rgba(31, 41, 55, 0.8) 100%)',
-                          border: '1px solid rgba(249, 115, 22, 0.2)',
-                          boxShadow: '0 20px 60px rgba(0, 0, 0, 0.3)',
-                          backdropFilter: 'blur(20px)',
+                          background: 'linear-gradient(135deg, rgba(31, 41, 55, 0.8) 0%, rgba(17, 24, 39, 0.9) 100%)',
+                          border: '1px solid rgba(75, 85, 99, 0.3)',
+                          backdropFilter: 'blur(10px)',
+                          boxShadow: '0 8px 32px rgba(0, 0, 0, 0.4)',
                         }}
                       >
                         <div className="aspect-video relative overflow-hidden">
@@ -302,7 +254,6 @@ const ProductDetailPage = () => {
                                 animate={{ opacity: 1, scale: 1 }}
                                 exit={{ opacity: 0, scale: 0.9 }}
                                 transition={{ duration: 0.6 }}
-                                onLoad={() => setImageLoaded(true)}
                                 onError={() => setImgError(true)}
                               />
                             ) : (
@@ -323,12 +274,7 @@ const ProductDetailPage = () => {
                         </div>
 
                         {/* Category Badge */}
-                        <motion.div 
-                          className="absolute top-4 right-4 z-10"
-                          initial={{ opacity: 0, x: 20 }}
-                          animate={{ opacity: 1, x: 0 }}
-                          transition={{ delay: 0.3 }}
-                        >
+                        <div className="absolute top-4 right-4 z-10">
                           <div 
                             className="px-4 py-2 rounded-xl text-sm font-bold text-white flex items-center gap-2"
                             style={{
@@ -340,15 +286,10 @@ const ProductDetailPage = () => {
                             <TrendingUp className="h-4 w-4 text-orange-400" />
                             {category.name?.toUpperCase()}
                           </div>
-                        </motion.div>
+                        </div>
 
                         {/* Rating Badge */}
-                        <motion.div 
-                          className="absolute top-4 left-4 z-10"
-                          initial={{ opacity: 0, x: -20 }}
-                          animate={{ opacity: 1, x: 0 }}
-                          transition={{ delay: 0.3 }}
-                        >
+                        <div className="absolute top-4 left-4 z-10">
                           <div 
                             className="px-3 py-2 rounded-xl text-sm font-bold text-white flex items-center gap-2"
                             style={{
@@ -360,66 +301,43 @@ const ProductDetailPage = () => {
                             <Star className="h-4 w-4 text-orange-400 fill-orange-400" />
                             <span>4.8</span>
                           </div>
-                        </motion.div>
-
-                        {/* Shine Effect */}
-                        <motion.div
-                          className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent pointer-events-none"
-                          initial={{ x: '-100%' }}
-                          animate={{ x: '100%' }}
-                          transition={{ duration: 2, repeat: Infinity, repeatDelay: 3 }}
-                        />
+                        </div>
                       </div>
-                    </motion.div>
+                    </div>
 
                     {/* Features Grid */}
-                    <motion.div
-                      variants={fadeIn}
-                      initial="hidden"
-                      animate="show"
-                      transition={{ delay: 0.2 }}
-                      className="grid grid-cols-1 sm:grid-cols-3 gap-4"
-                    >
+                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                       {[
-                        { icon: Clock, title: 'Hızlı Teslimat', desc: 'Anında kod teslimi', color: 'from-blue-500 to-cyan-500' },
-                        { icon: Shield, title: 'Güvenli Alışveriş', desc: '256-bit SSL şifreleme', color: 'from-green-500 to-emerald-500' },
-                        { icon: Award, title: 'Orijinal Ürün', desc: '100% garantili', color: 'from-orange-500 to-amber-500' },
+                        { icon: Clock, title: 'Hızlı Teslimat', desc: 'Anında kod teslimi' },
+                        { icon: Shield, title: 'Güvenli Alışveriş', desc: '256-bit SSL şifreleme' },
+                        { icon: Award, title: 'Orijinal Ürün', desc: '100% garantili' },
                       ].map((feature, i) => (
-                        <motion.div
+                        <div
                           key={i}
-                          className="p-6 rounded-2xl relative overflow-hidden group cursor-pointer"
+                          className="p-6 rounded-2xl relative overflow-hidden"
                           style={{
-                            background: 'linear-gradient(135deg, rgba(17, 24, 39, 0.9) 0%, rgba(31, 41, 55, 0.8) 100%)',
+                            background: 'linear-gradient(135deg, rgba(31, 41, 55, 0.8) 0%, rgba(17, 24, 39, 0.9) 100%)',
                             border: '1px solid rgba(75, 85, 99, 0.3)',
-                          }}
-                          whileHover={{ 
-                            y: -4,
-                            borderColor: 'rgba(249, 115, 22, 0.5)',
+                            backdropFilter: 'blur(10px)',
                           }}
                         >
-                          <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${feature.color} opacity-20 absolute top-4 right-4 group-hover:opacity-30 transition-opacity`} />
-                          <feature.icon className={`h-8 w-8 mb-3 bg-gradient-to-br ${feature.color} bg-clip-text text-transparent`} />
+                          <feature.icon className="h-8 w-8 mb-3 text-orange-400" />
                           <h4 className="text-white font-bold text-sm mb-1">{feature.title}</h4>
                           <p className="text-gray-400 text-xs">{feature.desc}</p>
-                        </motion.div>
+                        </div>
                       ))}
-                    </motion.div>
+                    </div>
 
                     {/* Product Description */}
                     {product.detail && (
-                      <motion.div
-                        variants={fadeIn}
-                        initial="hidden"
-                        animate="show"
-                        transition={{ delay: 0.3 }}
-                      >
+                      <div>
                         <div 
                           className="rounded-2xl p-8"
                           style={{
-                            background: 'linear-gradient(135deg, rgba(17, 24, 39, 0.9) 0%, rgba(31, 41, 55, 0.8) 100%)',
-                            border: '1px solid rgba(249, 115, 22, 0.2)',
-                            boxShadow: '0 10px 40px rgba(0, 0, 0, 0.3)',
-                            backdropFilter: 'blur(20px)',
+                            background: 'linear-gradient(135deg, rgba(31, 41, 55, 0.8) 0%, rgba(17, 24, 39, 0.9) 100%)',
+                            border: '1px solid rgba(75, 85, 99, 0.3)',
+                            backdropFilter: 'blur(10px)',
+                            boxShadow: '0 8px 32px rgba(0, 0, 0, 0.4)',
                           }}
                         >
                           <div className="flex items-center gap-3 mb-6">
@@ -439,59 +357,34 @@ const ProductDetailPage = () => {
                             dangerouslySetInnerHTML={{ __html: product.detail }}
                           />
                         </div>
-                      </motion.div>
+                      </div>
                     )}
                   </div>
 
                   {/* Right Column - Price & Actions */}
                   <div className="lg:col-span-1">
-                    <motion.div
-                      variants={fadeIn}
-                      initial="hidden"
-                      animate="show"
-                      transition={{ delay: 0.1 }}
-                      className="sticky top-24"
-                    >
+                    <div className="sticky top-24">
                       <div 
                         className="rounded-2xl p-8 relative overflow-hidden"
                         style={{
-                          background: 'linear-gradient(135deg, rgba(17, 24, 39, 0.95) 0%, rgba(31, 41, 55, 0.9) 100%)',
-                          border: '1px solid rgba(249, 115, 22, 0.3)',
-                          boxShadow: '0 20px 60px rgba(249, 115, 22, 0.2)',
-                          backdropFilter: 'blur(20px)',
+                          background: 'linear-gradient(135deg, rgba(31, 41, 55, 0.8) 0%, rgba(17, 24, 39, 0.9) 100%)',
+                          border: '1px solid rgba(75, 85, 99, 0.3)',
+                          backdropFilter: 'blur(10px)',
+                          boxShadow: '0 8px 32px rgba(0, 0, 0, 0.4)',
                         }}
                       >
-                        {/* Animated Glow */}
-                        <motion.div
-                          className="absolute top-0 left-1/2 -translate-x-1/2 w-40 h-40 bg-orange-500/20 rounded-full blur-3xl"
-                          animate={{
-                            scale: [1, 1.2, 1],
-                            opacity: [0.3, 0.5, 0.3],
-                          }}
-                          transition={{ duration: 3, repeat: Infinity }}
-                        />
-
                         {/* Price Section */}
                         <div className="relative z-10 text-center mb-8">
-                          <motion.div 
-                            className="flex items-center justify-center gap-2 text-orange-300 text-sm mb-3"
-                            animate={{ scale: [1, 1.05, 1] }}
-                            transition={{ duration: 2, repeat: Infinity }}
-                          >
-                            <div className="w-2 h-2 rounded-full bg-orange-400 animate-pulse" />
+                          <div className="flex items-center justify-center gap-2 text-orange-300 text-sm mb-3">
+                            <div className="w-2 h-2 rounded-full bg-orange-400" />
                             <span className="font-bold">ÖZEL FİYAT</span>
-                          </motion.div>
+                          </div>
                           
-                          <motion.div 
-                            className="text-5xl font-black text-white tracking-tight mb-4"
-                            initial={{ scale: 0.9, opacity: 0 }}
-                            animate={{ scale: 1, opacity: 1 }}
-                            transition={{ delay: 0.2 }}
-                          >
+                          <div className="text-5xl font-black text-white tracking-tight mb-4">
                             <span className="bg-gradient-to-r from-orange-300 via-orange-400 to-orange-300 bg-clip-text text-transparent">
                               {displayPrice}
                             </span>
-                          </motion.div>
+                          </div>
 
                           <div className="flex items-center justify-center gap-2 text-gray-400 text-sm">
                             <Lock className="w-4 h-4 text-green-400" />
@@ -508,15 +401,9 @@ const ProductDetailPage = () => {
                             className="w-full font-black text-black py-5 px-6 rounded-xl transition-all duration-300 flex items-center justify-center gap-3 text-lg relative overflow-hidden group"
                             style={{
                               background: 'linear-gradient(135deg, rgb(251, 146, 60) 0%, rgb(249, 115, 22) 50%, rgb(251, 146, 60) 100%)',
-                              boxShadow: '0 10px 40px rgba(249, 115, 22, 0.5)',
+                              boxShadow: '0 4px 16px rgba(249, 115, 22, 0.3)',
                             }}
                           >
-                            <motion.div
-                              className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent"
-                              initial={{ x: '-100%' }}
-                              whileHover={{ x: '100%' }}
-                              transition={{ duration: 0.6 }}
-                            />
                             <Zap className="h-6 w-6 relative z-10" />
                             <span className="relative z-10">HEMEN SATIN AL</span>
                           </motion.button>
@@ -528,7 +415,7 @@ const ProductDetailPage = () => {
                             className="w-full px-6 py-5 rounded-xl text-white font-bold transition-all duration-300 flex items-center justify-center gap-3 text-base"
                             style={{
                               background: 'rgba(249, 115, 22, 0.15)',
-                              border: '2px solid rgba(249, 115, 22, 0.4)',
+                              border: '1px solid rgba(249, 115, 22, 0.3)',
                             }}
                           >
                             <ShoppingCart className="h-5 w-5" />
@@ -537,26 +424,25 @@ const ProductDetailPage = () => {
                         </div>
 
                         {/* Trust Badges */}
-                        <div className="mt-8 pt-8 border-t border-gray-700/50 space-y-3 relative z-10">
-                          {[
-                            { icon: CheckCircle, text: 'Anında teslimat garantisi' },
-                            { icon: CreditCard, text: 'Tüm kartlar geçerli' },
-                            { icon: Shield, text: '7/24 müşteri desteği' },
-                          ].map((item, i) => (
-                            <motion.div
-                              key={i}
-                              className="flex items-center gap-3 text-sm text-gray-300"
-                              initial={{ opacity: 0, x: -10 }}
-                              animate={{ opacity: 1, x: 0 }}
-                              transition={{ delay: 0.4 + i * 0.1 }}
-                            >
-                              <item.icon className="h-5 w-5 text-green-400 flex-shrink-0" />
-                              <span>{item.text}</span>
-                            </motion.div>
-                          ))}
+                        <div className="mt-8 pt-8 border-t" style={{ borderColor: 'rgba(75, 85, 99, 0.3)' }}>
+                          <div className="space-y-3">
+                            {[
+                              { icon: CheckCircle, text: 'Anında teslimat garantisi' },
+                              { icon: CreditCard, text: 'Tüm kartlar geçerli' },
+                              { icon: Shield, text: '7/24 müşteri desteği' },
+                            ].map((item, i) => (
+                              <div
+                                key={i}
+                                className="flex items-center gap-3 text-sm text-gray-300"
+                              >
+                                <item.icon className="h-5 w-5 text-green-400 flex-shrink-0" />
+                                <span>{item.text}</span>
+                              </div>
+                            ))}
+                          </div>
                         </div>
                       </div>
-                    </motion.div>
+                    </div>
                   </div>
                 </div>
               </div>

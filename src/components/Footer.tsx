@@ -11,10 +11,10 @@ const Footer = () => {
           <div 
             className="rounded-2xl border p-6"
           style={{
-            background: 'rgba(0, 0, 0, 0.6)',
-            border: '1px solid rgba(249, 115, 22, 0.2)',
-            boxShadow: '0 4px 16px rgba(0,0,0,0.3)',
-            backdropFilter: 'blur(12px)',
+            background: 'linear-gradient(135deg, rgba(31, 41, 55, 0.8) 0%, rgba(17, 24, 39, 0.9) 100%)',
+            border: '1px solid rgba(75, 85, 99, 0.3)',
+            backdropFilter: 'blur(10px)',
+            boxShadow: '0 8px 32px rgba(0, 0, 0, 0.4)',
           }}
         >
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
