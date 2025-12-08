@@ -271,6 +271,21 @@ h1, h2, h3, h4, h5, h6 {
   animation: cosmic-float 3s ease-in-out infinite;
 }
 
+/* Gradient Text Animation */
+@keyframes gradient {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+.animate-gradient {
+  background-size: 200% 200%;
+  animation: gradient 3s ease infinite;
+}
+
 /* Swiper Custom Styles */
 .categories-swiper {
   padding-bottom: 60px !important;

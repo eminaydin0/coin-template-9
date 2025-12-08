@@ -76,7 +76,7 @@ const HomePage = () => {
       <div className="min-h-screen pt-20 relative overflow-hidden gaming-scrollbar">
         <SEOHead />
         <CommonBackground />
-        
+
         <div className="w-full relative z-10">
           {/* Hero Section Shimmer */}
           <section className="w-full mb-12 px-4 sm:px-6 lg:px-8">
@@ -104,11 +104,11 @@ const HomePage = () => {
   }
 
   return (
-    <div 
+    <div
       className="min-h-screen pt-20 relative overflow-hidden gaming-scrollbar"
     >
       <SEOHead />
-      
+
       {/* Subtle Background Overlay */}
       <div className="fixed inset-0 pointer-events-none z-0 bg-gradient-to-b from-black/50 to-black" />
 
@@ -122,7 +122,7 @@ const HomePage = () => {
             <div className="h-[60vh] min-h-[450px] max-h-[600px] overflow-hidden rounded-3xl relative">
               {/* Subtle Border Effect */}
               <div className="absolute inset-0 rounded-3xl bg-orange-500/5 blur-xl -z-10" />
-              
+
               <HeroSection
                 heroList={heroList}
                 currentHeroIndex={currentHeroIndex}
@@ -137,7 +137,7 @@ const HomePage = () => {
         {/* CONTENT SECTIONS with Scroll Reveal */}
         <section className="w-full mb-16 px-4 sm:px-6 lg:px-8">
           <div className="w-full space-y-12">
-            
+
             {/* Row 1: Popular Products */}
             <ScrollRevealSection>
               <SectionCard>
@@ -161,6 +161,14 @@ const HomePage = () => {
               </SectionCard>
             </ScrollRevealSection>
 
+            {/* Row 5: How It Works - Full Width */}
+            <ScrollRevealSection>
+              <SectionCard fullWidth>
+                <HowItWorksSection />
+              </SectionCard>
+            </ScrollRevealSection>
+
+
             {/* Row 4: More Games - Full Width */}
             <ScrollRevealSection>
               <SectionCard fullWidth>
@@ -168,12 +176,6 @@ const HomePage = () => {
               </SectionCard>
             </ScrollRevealSection>
 
-            {/* Row 5: How It Works - Full Width */}
-            <ScrollRevealSection>
-              <SectionCard fullWidth>
-                <HowItWorksSection />
-              </SectionCard>
-            </ScrollRevealSection>
 
             {/* Row 6: Newsletter & CTA - Side by Side */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -182,7 +184,7 @@ const HomePage = () => {
                   <NewsletterSignup />
                 </SectionCard>
               </ScrollRevealSection>
-              
+
               <ScrollRevealSection>
                 <SectionCard>
                   <CallToActionSection variant="compact" />
@@ -200,9 +202,9 @@ const HomePage = () => {
 };
 
 // Scroll Reveal Wrapper Component - Simplified
-const ScrollRevealSection = ({ 
+const ScrollRevealSection = ({
   children
-}: { 
+}: {
   children: React.ReactNode;
 }) => {
   return (
@@ -213,11 +215,11 @@ const ScrollRevealSection = ({
 };
 
 // Enhanced Section Card Component - Modern Glassmorphism Style
-const SectionCard = ({ 
-  children, 
+const SectionCard = ({
+  children,
   fullHeight = false,
-  fullWidth = false 
-}: { 
+  fullWidth = false
+}: {
   children: React.ReactNode;
   fullHeight?: boolean;
   fullWidth?: boolean;

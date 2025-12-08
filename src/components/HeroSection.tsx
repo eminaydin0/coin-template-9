@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
-import { Rocket, Eye, ArrowRight, Play, Pause, ChevronLeft, ChevronRight } from "lucide-react";
+import { Rocket, Eye, ArrowRight, Play, Pause, ChevronLeft, ChevronRight, Sparkles, Star, Gamepad2 } from "lucide-react";
 import SlideIndicators from "./SlideIndicators";
 
 interface HeroItem {
@@ -87,7 +87,7 @@ export default function HeroSection({
   return (
     <section 
       ref={heroRef}
-      className="relative h-full w-full flex items-center justify-center overflow-hidden rounded-3xl"
+      className="relative h-full w-full flex overflow-hidden rounded-3xl"
       style={{
         background: 'linear-gradient(135deg, rgba(31, 41, 55, 0.8) 0%, rgba(17, 24, 39, 0.9) 100%)',
         border: '1px solid rgba(75, 85, 99, 0.3)',
@@ -98,91 +98,152 @@ export default function HeroSection({
       {/* Subtle Background Glow */}
       <div className="absolute -top-20 left-1/2 -translate-x-1/2 w-96 h-96 bg-orange-500/5 rounded-full blur-3xl pointer-events-none" />
 
-      {/* Background Image */}
-      <AnimatePresence mode="wait">
+      {/* Left Side - Photo (50%) */}
+      <div className="w-1/2 h-full relative overflow-hidden flex items-center justify-center">
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={current.url}
+            className="w-full h-full flex items-center justify-center"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.5 }}
+          >
+            <img
+              src={current.url}
+              alt={current.slogan}
+              className="max-w-full max-h-full object-contain"
+              style={{ 
+                opacity: imageLoaded ? 1 : 0,
+                objectPosition: 'center center',
+              }}
+              onLoad={() => setImageLoaded(true)}
+            />
+          </motion.div>
+        </AnimatePresence>
+      </div>
+
+      {/* Subtle Floating Elements - Asymmetric */}
+      <div className="absolute inset-0 pointer-events-none overflow-hidden">
         <motion.div
-          key={current.url}
-          className="absolute inset-0"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          transition={{ duration: 0.5 }}
+          className="absolute text-orange-400/15"
+          style={{ left: '8%', top: '15%' }}
+          animate={{ y: [0, -15, 0], opacity: [0.15, 0.25, 0.15] }}
+          transition={{ duration: 5, repeat: Infinity, delay: 0 }}
         >
-          <img
-            src={current.url}
-            alt={current.slogan}
-            className="absolute inset-0 w-full h-full"
-            style={{ 
-              opacity: imageLoaded ? 0.85 : 0,
-              objectFit: 'cover',
-              objectPosition: 'center center',
-              filter: 'brightness(0.9) contrast(1.1)',
-            }}
-            onLoad={() => setImageLoaded(true)}
-          />
-          
-          {/* Gradient Overlay */}
-          <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/65 to-black/95" />
+          <Star className="h-8 w-8" />
         </motion.div>
-      </AnimatePresence>
-
-      {/* Content */}
-      <div className="relative z-10 text-center max-w-4xl px-4 sm:px-6 lg:px-8">
-        {/* Badge */}
-        <div className="inline-flex items-center gap-2 mb-6 px-4 py-2 rounded-xl backdrop-blur-md"
-          style={{
-            background: 'rgba(249, 115, 22, 0.15)',
-            border: '1px solid rgba(249, 115, 22, 0.3)',
-          }}
+        <motion.div
+          className="absolute text-orange-400/12"
+          style={{ right: '12%', top: '30%' }}
+          animate={{ y: [0, -12, 0], opacity: [0.12, 0.2, 0.12] }}
+          transition={{ duration: 6, repeat: Infinity, delay: 1.5 }}
         >
-          <Rocket className="h-4 w-4 text-orange-400" />
-          <span className="text-xs font-bold text-orange-300 uppercase tracking-wider">
-            Gaming Platform
-          </span>
-        </div>
+          <Sparkles className="h-6 w-6" />
+        </motion.div>
+        <motion.div
+          className="absolute text-orange-400/10"
+          style={{ left: '15%', bottom: '20%' }}
+          animate={{ y: [0, -10, 0], opacity: [0.1, 0.18, 0.1] }}
+          transition={{ duration: 7, repeat: Infinity, delay: 3 }}
+        >
+          <Gamepad2 className="h-7 w-7" />
+        </motion.div>
+      </div>
 
-        {/* Main Heading */}
-        <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black text-white mb-6 leading-tight tracking-tight">
-          <span className="bg-gradient-to-r from-orange-300 via-orange-400 to-orange-500 bg-clip-text text-transparent">
-            {current.slogan}
-          </span>
-        </h1>
-
-        {/* Subtitle */}
-        <p className="text-base sm:text-lg md:text-xl font-medium text-gray-300 mb-10 max-w-2xl mx-auto leading-relaxed">
-          {[current.short1, current.short2, current.short3].filter(Boolean).join(" • ")}
-        </p>
-
-        {/* Action Buttons */}
-        <div className="flex justify-center gap-4 mt-8 flex-wrap">
-          <Link
-            to="/oyunlar"
-            className="group relative inline-flex items-center gap-2.5 px-6 py-3 rounded-xl font-bold text-white text-sm overflow-hidden transition-all duration-300"
-            style={{
-              background: 'linear-gradient(135deg, rgba(249, 115, 22, 1), rgba(234, 88, 12, 1))',
-              boxShadow: '0 4px 16px rgba(249, 115, 22, 0.3)',
-            }}
+      {/* Right Side - Text (50%) */}
+      <div className="w-1/2 h-full flex items-center justify-center relative z-10 px-8 lg:px-16">
+        <div className="text-center max-w-2xl w-full">
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={current.slogan}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            transition={{ duration: 0.5, ease: "easeOut" }}
           >
-            <Rocket className="h-4 w-4" />
-            <span>Keşfet</span>
-            <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
-          </Link>
+            {/* Main Heading - Balanced */}
+            <motion.h1 
+              className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black text-white mb-6 leading-tight tracking-tight"
+              initial={{ opacity: 0, y: 15 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.1, duration: 0.5 }}
+            >
+              <span className="bg-gradient-to-r from-orange-300 via-orange-400 to-orange-500 bg-clip-text text-transparent">
+                {current.slogan}
+              </span>
+            </motion.h1>
 
-          <Link
-            to="/rehber"
-            className="group inline-flex items-center gap-2.5 px-6 py-3 rounded-xl font-semibold text-white text-sm backdrop-blur-md transition-all duration-300"
-            style={{
-              background: 'rgba(249, 115, 22, 0.1)',
-              border: '1px solid rgba(249, 115, 22, 0.3)',
-            }}
-          >
-            <Eye className="h-4 w-4" />
-            <span>Nasıl Çalışır</span>
-          </Link>
+            {/* Subtitle - Refined */}
+            <motion.p 
+              className="text-base sm:text-lg md:text-xl font-medium text-gray-300 mb-10 leading-relaxed"
+              initial={{ opacity: 0, y: 15 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.2, duration: 0.5 }}
+            >
+              {[current.short1, current.short2, current.short3].filter(Boolean).join(" • ")}
+            </motion.p>
+
+            {/* Action Buttons - Refined */}
+            <motion.div 
+              className="flex justify-center gap-4 mt-8 flex-wrap"
+              initial={{ opacity: 0, y: 15 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.3, duration: 0.5 }}
+            >
+              <Link
+                to="/oyunlar"
+                className="group relative inline-flex items-center gap-2.5 px-6 py-3 rounded-xl font-bold text-white text-sm overflow-hidden transition-all duration-300"
+                style={{
+                  background: 'linear-gradient(135deg, rgba(249, 115, 22, 1), rgba(234, 88, 12, 1))',
+                  boxShadow: '0 4px 16px rgba(249, 115, 22, 0.3)',
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.boxShadow = '0 6px 24px rgba(249, 115, 22, 0.4)';
+                  e.currentTarget.style.transform = 'translateY(-1px)';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.boxShadow = '0 4px 16px rgba(249, 115, 22, 0.3)';
+                  e.currentTarget.style.transform = 'translateY(0)';
+                }}
+              >
+                <motion.div
+                  className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent"
+                  initial={{ x: '-100%' }}
+                  whileHover={{ x: '100%' }}
+                  transition={{ duration: 0.5 }}
+                />
+                <Rocket className="h-4 w-4 relative z-10" />
+                <span className="relative z-10">Keşfet</span>
+                <ArrowRight className="h-4 w-4 group-hover:translate-x-0.5 transition-transform relative z-10" />
+              </Link>
+
+              <Link
+                to="/rehber"
+                className="group inline-flex items-center gap-2.5 px-6 py-3 rounded-xl font-semibold text-white text-sm backdrop-blur-md transition-all duration-300"
+                style={{
+                  background: 'rgba(249, 115, 22, 0.1)',
+                  border: '1px solid rgba(249, 115, 22, 0.3)',
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.background = 'rgba(249, 115, 22, 0.15)';
+                  e.currentTarget.style.transform = 'translateY(-1px)';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.background = 'rgba(249, 115, 22, 0.1)';
+                  e.currentTarget.style.transform = 'translateY(0)';
+                }}
+              >
+                <Eye className="h-4 w-4" />
+                <span>Nasıl Çalışır</span>
+              </Link>
+            </motion.div>
+          </motion.div>
+        </AnimatePresence>
         </div>
       </div>
 
-      {/* Navigation Controls */}
+      {/* Navigation Controls - Refined */}
       {heroList.length > 1 && (
         <>
           {/* Previous Button */}
