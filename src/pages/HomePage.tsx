@@ -178,15 +178,15 @@ const HomePage = () => {
 
 
             {/* Row 6: Newsletter & CTA - Side by Side */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-stretch">
               <ScrollRevealSection>
-                <SectionCard>
+                <SectionCard fullHeight>
                   <NewsletterSignup />
                 </SectionCard>
               </ScrollRevealSection>
 
               <ScrollRevealSection>
-                <SectionCard>
+                <SectionCard fullHeight>
                   <CallToActionSection variant="compact" />
                 </SectionCard>
               </ScrollRevealSection>
@@ -228,7 +228,7 @@ const SectionCard = ({
     <div className={`relative ${fullHeight ? 'h-full' : ''} ${fullWidth ? 'w-full' : ''}`}>
       {/* Modern Glassmorphism Container */}
       <div
-        className="relative backdrop-blur-xl p-6 sm:p-8 rounded-3xl overflow-hidden"
+        className={`relative backdrop-blur-xl p-6 sm:p-8 rounded-3xl overflow-hidden ${fullHeight ? 'h-full flex flex-col' : ''}`}
         style={{
           background: 'linear-gradient(135deg, rgba(31, 41, 55, 0.8) 0%, rgba(17, 24, 39, 0.9) 100%)',
           border: '1px solid rgba(75, 85, 99, 0.3)',
@@ -236,7 +236,7 @@ const SectionCard = ({
         }}
       >
         {/* Content */}
-        <div className="relative z-10">
+        <div className={`relative z-10 ${fullHeight ? 'flex-1 flex flex-col' : ''}`}>
           {children}
         </div>
       </div>

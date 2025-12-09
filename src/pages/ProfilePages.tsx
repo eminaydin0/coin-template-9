@@ -11,7 +11,8 @@ import {
   Shield,
   Home,
   ChevronRight,
-  UserCircle
+  UserCircle,
+  Sparkles
 } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 import { getMyData, updateName, updateEmail, updatePassword } from '../services/api';
@@ -319,41 +320,59 @@ const ProfilePage = () => {
         <div className="min-h-screen pt-20 relative overflow-hidden gaming-scrollbar">
           <CommonBackground />
           
+          {/* Background Glow */}
+          <div className="absolute -top-20 left-1/2 -translate-x-1/2 w-96 h-96 bg-orange-500/5 rounded-full blur-3xl pointer-events-none" />
+          
           <div className="w-full relative z-10">
-            {/* Header Section - CategoriesPage Stili */}
-            <div className="w-full mb-8 px-4 sm:px-6 lg:px-8">
-              <div className="max-w-7xl mx-auto">
-                <div className="rounded-2xl backdrop-blur-xl bg-black/20 border border-white/10 p-6 shadow-2xl">
+            {/* Header */}
+            <div className="w-full mb-10 px-4 sm:px-6 lg:px-8">
+              <div className="w-full">
+                <div 
+                  className="rounded-2xl p-8 relative overflow-hidden"
+                  style={{
+                    background: 'linear-gradient(135deg, rgba(31, 41, 55, 0.8) 0%, rgba(17, 24, 39, 0.9) 100%)',
+                    border: '1px solid rgba(75, 85, 99, 0.3)',
+                    backdropFilter: 'blur(10px)',
+                    boxShadow: '0 8px 32px rgba(0, 0, 0, 0.4)',
+                  }}
+                >
                   {/* Breadcrumb */}
-                  <div className="flex items-center justify-center sm:justify-start gap-1.5 text-xs mb-4">
+                  <div className="flex items-center flex-wrap gap-2 text-sm mb-6 relative z-10">
                     <Link 
                       to="/" 
-                      className="flex items-center gap-1 text-gray-400 hover:text-orange-300 transition-colors"
+                      className="flex items-center gap-1.5 text-gray-400 hover:text-orange-400 transition-colors group"
                     >
-                      <Home className="h-3.5 w-3.5" />
+                      <Home className="h-4 w-4 group-hover:scale-110 transition-transform" />
                       <span>Ana Sayfa</span>
                     </Link>
-                    <ChevronRight className="h-3.5 w-3.5 text-gray-600" />
-                    <span className="text-gray-300 font-medium">Profil Ayarları</span>
+                    <ChevronRight className="h-4 w-4 text-gray-600" />
+                    <span className="text-orange-300 font-semibold">Profil Ayarları</span>
                   </div>
 
                   {/* Title Section */}
-                  <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-                    <div className="flex items-center gap-2">
-                      <div 
-                        className="w-7 h-7 rounded-lg flex items-center justify-center"
-                        style={{
-                          background: 'rgba(249, 115, 22, 0.15)',
-                          border: '1px solid rgba(249, 115, 22, 0.3)',
-                        }}
-                      >
-                        <UserCircle className="h-4 w-4 text-orange-300" />
+                  <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6 relative z-10">
+                    <div className="flex items-center gap-4">
+                      <div className="relative">
+                        <div 
+                          className="w-14 h-14 rounded-2xl flex items-center justify-center"
+                          style={{
+                            background: 'linear-gradient(135deg, rgba(249, 115, 22, 0.2) 0%, rgba(234, 88, 12, 0.15) 100%)',
+                            border: '1px solid rgba(249, 115, 22, 0.3)',
+                            boxShadow: '0 8px 32px rgba(249, 115, 22, 0.15)',
+                          }}
+                        >
+                          <UserCircle className="h-6 w-6 text-orange-400" />
+                        </div>
                       </div>
-                      <h1 className="text-xl sm:text-2xl font-bold text-white">
-                        <span className="bg-gradient-to-r from-orange-300 to-orange-400 bg-clip-text text-transparent">
+                      
+                      <div>
+                        <h1 className="text-2xl font-black text-white tracking-tight mb-1">
                           Profil Ayarları
-                        </span>
-                      </h1>
+                        </h1>
+                        <p className="text-gray-400 text-sm font-medium">
+                          Kişisel bilgilerinizi ve şifrenizi güncelleyin
+                        </p>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -361,23 +380,25 @@ const ProfilePage = () => {
             </div>
 
             {/* Not Authenticated State */}
-            <section className="relative py-8">
+            <section className="relative py-4">
               <div className="px-4 sm:px-6 lg:px-8">
-                <div className="max-w-7xl mx-auto">
+                <div className="w-full">
                   <div 
-                    className="text-center py-20 rounded-xl border"
+                    className="text-center py-24 rounded-2xl"
                     style={{
-                      background: 'rgba(0, 0, 0, 0.7)',
-                      border: '1px solid rgba(249, 115, 22, 0.3)',
-                      boxShadow: '0 4px 16px rgba(0,0,0,0.3)',
-                      backdropFilter: 'blur(12px)',
+                      background: 'linear-gradient(135deg, rgba(31, 41, 55, 0.8) 0%, rgba(17, 24, 39, 0.9) 100%)',
+                      border: '1px solid rgba(75, 85, 99, 0.3)',
+                      backdropFilter: 'blur(10px)',
+                      boxShadow: '0 8px 32px rgba(0, 0, 0, 0.4)',
                     }}
                   >
-                    <UserCircle className="h-16 w-16 text-orange-300/60 mx-auto mb-6" />
-                    <h3 className="text-2xl sm:text-3xl font-bold text-white mb-3">
+                    <div className="w-24 h-24 rounded-3xl bg-gradient-to-br from-orange-500/20 to-orange-600/10 flex items-center justify-center mx-auto mb-6">
+                      <UserCircle className="h-12 w-12 text-orange-400/60" />
+                    </div>
+                    <h3 className="text-3xl font-black text-white mb-3">
                       Profil sayfasına erişmek için giriş yapın
                     </h3>
-                    <p className="text-gray-400 text-sm px-4 mb-8">Hesabınıza giriş yaparak profil ayarlarınızı yönetebilirsiniz.</p>
+                    <p className="text-gray-400 text-lg mb-8">Hesabınıza giriş yaparak profil ayarlarınızı yönetebilirsiniz.</p>
                     
                     <div className="flex flex-col sm:flex-row gap-3 justify-center">
                       <Link 
@@ -433,59 +454,77 @@ const ProfilePage = () => {
     <>
       <SEOHead />
       <div className="min-h-screen pt-20 relative overflow-hidden gaming-scrollbar">
-        {/* Lüks Arka Plan Efektleri */}
         <CommonBackground />
 
+        {/* Background Glow */}
+        <div className="absolute -top-20 left-1/2 -translate-x-1/2 w-96 h-96 bg-orange-500/5 rounded-full blur-3xl pointer-events-none" />
+        
         <div className="w-full relative z-10">
-          {/* Header Section - CategoriesPage Stili */}
-          <div className="w-full mb-8 px-4 sm:px-6 lg:px-8">
-            <div className="max-w-7xl mx-auto">
-              <div className="rounded-2xl backdrop-blur-xl bg-black/20 border border-white/10 p-6 shadow-2xl">
+          {/* Header */}
+          <div className="w-full mb-10 px-4 sm:px-6 lg:px-8">
+            <div className="w-full">
+              <div 
+                className="rounded-2xl p-8 relative overflow-hidden"
+                style={{
+                  background: 'linear-gradient(135deg, rgba(31, 41, 55, 0.8) 0%, rgba(17, 24, 39, 0.9) 100%)',
+                  border: '1px solid rgba(75, 85, 99, 0.3)',
+                  backdropFilter: 'blur(10px)',
+                  boxShadow: '0 8px 32px rgba(0, 0, 0, 0.4)',
+                }}
+              >
                 {/* Breadcrumb */}
-                <div className="flex items-center justify-center sm:justify-start gap-1.5 text-xs mb-4">
+                <div className="flex items-center flex-wrap gap-2 text-sm mb-6 relative z-10">
                   <Link 
                     to="/" 
-                    className="flex items-center gap-1 text-gray-400 hover:text-orange-300 transition-colors"
+                    className="flex items-center gap-1.5 text-gray-400 hover:text-orange-400 transition-colors group"
                   >
-                    <Home className="h-3.5 w-3.5" />
+                    <Home className="h-4 w-4 group-hover:scale-110 transition-transform" />
                     <span>Ana Sayfa</span>
                   </Link>
-                  <ChevronRight className="h-3.5 w-3.5 text-gray-600" />
-                  <span className="text-gray-300 font-medium">Profil Ayarları</span>
+                  <ChevronRight className="h-4 w-4 text-gray-600" />
+                  <span className="text-orange-300 font-semibold">Profil Ayarları</span>
                 </div>
 
                 {/* Title Section */}
-                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-                  <div className="flex items-center gap-2">
-                    <div 
-                      className="w-7 h-7 rounded-lg flex items-center justify-center"
-                      style={{
-                        background: 'rgba(249, 115, 22, 0.15)',
-                        border: '1px solid rgba(249, 115, 22, 0.3)',
-                      }}
-                    >
-                      <UserCircle className="h-4 w-4 text-orange-300" />
+                <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6 relative z-10">
+                  <div className="flex items-center gap-4">
+                    <div className="relative">
+                      <div 
+                        className="w-14 h-14 rounded-2xl flex items-center justify-center"
+                        style={{
+                          background: 'linear-gradient(135deg, rgba(249, 115, 22, 0.2) 0%, rgba(234, 88, 12, 0.15) 100%)',
+                          border: '1px solid rgba(249, 115, 22, 0.3)',
+                          boxShadow: '0 8px 32px rgba(249, 115, 22, 0.15)',
+                        }}
+                      >
+                        <UserCircle className="h-6 w-6 text-orange-400" />
+                      </div>
                     </div>
-                    <h1 className="text-xl sm:text-2xl font-bold text-white">
-                      <span className="bg-gradient-to-r from-orange-300 to-orange-400 bg-clip-text text-transparent">
+                    
+                    <div>
+                      <h1 className="text-2xl font-black text-white tracking-tight mb-1">
                         Profil Ayarları
-                      </span>
-                    </h1>
+                      </h1>
+                      <p className="text-gray-400 text-sm font-medium">
+                        Kişisel bilgilerinizi ve şifrenizi güncelleyin
+                      </p>
+                    </div>
                   </div>
 
-                  {/* Badge */}
-                  <div className="flex items-center gap-1.5">
-                    <span
-                      className="text-[10px] font-bold px-2.5 py-1 rounded-full"
+                  {/* Stats Badge */}
+                  <div className="flex items-center gap-3">
+                    <div
+                      className="px-4 py-2 rounded-xl flex items-center gap-2"
                       style={{
                         background: 'rgba(249, 115, 22, 0.15)',
                         border: '1px solid rgba(249, 115, 22, 0.3)',
-                        color: 'rgba(249, 115, 22, 0.95)',
-                        backdropFilter: 'blur(8px)',
                       }}
                     >
-                      KİŞİSEL BİLGİLER
-                    </span>
+                      <Sparkles className="h-4 w-4 text-orange-400" />
+                      <span className="text-orange-300 text-sm font-bold">
+                        KİŞİSEL BİLGİLER
+                      </span>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -493,10 +532,10 @@ const ProfilePage = () => {
           </div>
 
           {/* Profile Sections */}
-          <section className="relative py-8">
+          <section className="relative py-4">
             <div className="px-4 sm:px-6 lg:px-8">
-              <div className="max-w-7xl mx-auto">
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-5">
+              <div className="w-full">
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                 {/* Name Update Section */}
                 <ProfileFormCard
                   number={1}
@@ -506,63 +545,101 @@ const ProfilePage = () => {
                   onSubmit={handleUpdateName}
                   updating={updating === 'name'}
                 >
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <div className="space-y-2">
-                      <label className="block text-sm font-semibold text-gray-300">
-                        Ad
-                      </label>
-                      <input
-                        type="text"
-                        value={nameForm.firstName}
-                        onChange={(e) => setNameForm(prev => ({ ...prev, firstName: e.target.value }))}
-                        className="w-full px-4 py-3 rounded-xl text-white placeholder-gray-500 focus:outline-none transition-all duration-300 font-medium"
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                    <motion.div 
+                      className="space-y-3"
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: 0.1 }}
+                    >
+                      <div className="flex items-center gap-2">
+                        <motion.div
+                          className="w-1.5 h-1.5 rounded-full"
+                          style={{
+                            background: 'linear-gradient(135deg, rgba(249, 115, 22, 1), rgba(251, 146, 60, 1))',
+                            boxShadow: '0 0 8px rgba(249, 115, 22, 0.6)',
+                          }}
+                          animate={{
+                            scale: [1, 1.4, 1],
+                          }}
+                          transition={{ duration: 1.5, repeat: Infinity }}
+                        />
+                        <label className="block text-xs font-bold text-orange-300 uppercase tracking-wider">
+                          Ad
+                        </label>
+                      </div>
+                      <div
+                        className="rounded-xl p-4 border relative overflow-hidden"
                         style={{
-                          background: 'rgba(0, 0, 0, 0.6)',
-                          border: '1.5px solid rgba(249, 115, 22, 0.25)',
-                          boxShadow: 'inset 0 2px 4px rgba(0,0,0,0.2)',
+                          background: 'linear-gradient(135deg, rgba(249, 115, 22, 0.15), rgba(251, 146, 60, 0.1))',
+                          border: '1px solid rgba(249, 115, 22, 0.3)',
+                          boxShadow: '0 4px 12px rgba(249, 115, 22, 0.15)',
                         }}
-                        onFocus={(e) => {
-                          e.currentTarget.style.borderColor = 'rgba(249, 115, 22, 0.6)';
-                          e.currentTarget.style.boxShadow = '0 0 0 4px rgba(249, 115, 22, 0.1), inset 0 2px 4px rgba(0,0,0,0.2)';
-                          e.currentTarget.style.background = 'rgba(0, 0, 0, 0.7)';
-                        }}
-                        onBlur={(e) => {
-                          e.currentTarget.style.borderColor = 'rgba(249, 115, 22, 0.25)';
-                          e.currentTarget.style.boxShadow = 'inset 0 2px 4px rgba(0,0,0,0.2)';
-                          e.currentTarget.style.background = 'rgba(0, 0, 0, 0.6)';
-                        }}
-                        placeholder="Adınızı girin"
-                        required
-                      />
-                    </div>
-                    <div className="space-y-2">
-                      <label className="block text-sm font-semibold text-gray-300">
-                        Soyad
-                      </label>
-                      <input
-                        type="text"
-                        value={nameForm.lastName}
-                        onChange={(e) => setNameForm(prev => ({ ...prev, lastName: e.target.value }))}
-                        className="w-full px-4 py-3 rounded-xl text-white placeholder-gray-500 focus:outline-none transition-all duration-300 font-medium"
+                      >
+                        <motion.div
+                          className="absolute inset-0 bg-gradient-to-br from-orange-500/10 to-transparent"
+                          animate={{
+                            opacity: [0.2, 0.4, 0.2],
+                          }}
+                          transition={{ duration: 2, repeat: Infinity }}
+                        />
+                        <input
+                          type="text"
+                          value={nameForm.firstName}
+                          onChange={(e) => setNameForm(prev => ({ ...prev, firstName: e.target.value }))}
+                          className="w-full bg-transparent text-white placeholder-gray-500 focus:outline-none font-medium text-sm relative z-10"
+                          placeholder="Adınızı girin"
+                          required
+                        />
+                      </div>
+                    </motion.div>
+                    <motion.div 
+                      className="space-y-3"
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: 0.15 }}
+                    >
+                      <div className="flex items-center gap-2">
+                        <motion.div
+                          className="w-1.5 h-1.5 rounded-full"
+                          style={{
+                            background: 'linear-gradient(135deg, rgba(249, 115, 22, 1), rgba(251, 146, 60, 1))',
+                            boxShadow: '0 0 8px rgba(249, 115, 22, 0.6)',
+                          }}
+                          animate={{
+                            scale: [1, 1.4, 1],
+                          }}
+                          transition={{ duration: 1.5, repeat: Infinity, delay: 0.2 }}
+                        />
+                        <label className="block text-xs font-bold text-orange-300 uppercase tracking-wider">
+                          Soyad
+                        </label>
+                      </div>
+                      <div
+                        className="rounded-xl p-4 border relative overflow-hidden"
                         style={{
-                          background: 'rgba(0, 0, 0, 0.6)',
-                          border: '1.5px solid rgba(249, 115, 22, 0.25)',
-                          boxShadow: 'inset 0 2px 4px rgba(0,0,0,0.2)',
+                          background: 'linear-gradient(135deg, rgba(249, 115, 22, 0.15), rgba(251, 146, 60, 0.1))',
+                          border: '1px solid rgba(249, 115, 22, 0.3)',
+                          boxShadow: '0 4px 12px rgba(249, 115, 22, 0.15)',
                         }}
-                        onFocus={(e) => {
-                          e.currentTarget.style.borderColor = 'rgba(249, 115, 22, 0.6)';
-                          e.currentTarget.style.boxShadow = '0 0 0 4px rgba(249, 115, 22, 0.1), inset 0 2px 4px rgba(0,0,0,0.2)';
-                          e.currentTarget.style.background = 'rgba(0, 0, 0, 0.7)';
-                        }}
-                        onBlur={(e) => {
-                          e.currentTarget.style.borderColor = 'rgba(249, 115, 22, 0.25)';
-                          e.currentTarget.style.boxShadow = 'inset 0 2px 4px rgba(0,0,0,0.2)';
-                          e.currentTarget.style.background = 'rgba(0, 0, 0, 0.6)';
-                        }}
-                        placeholder="Soyadınızı girin"
-                        required
-                      />
-                    </div>
+                      >
+                        <motion.div
+                          className="absolute inset-0 bg-gradient-to-br from-orange-500/10 to-transparent"
+                          animate={{
+                            opacity: [0.2, 0.4, 0.2],
+                          }}
+                          transition={{ duration: 2, repeat: Infinity, delay: 0.3 }}
+                        />
+                        <input
+                          type="text"
+                          value={nameForm.lastName}
+                          onChange={(e) => setNameForm(prev => ({ ...prev, lastName: e.target.value }))}
+                          className="w-full bg-transparent text-white placeholder-gray-500 focus:outline-none font-medium text-sm relative z-10"
+                          placeholder="Soyadınızı girin"
+                          required
+                        />
+                      </div>
+                    </motion.div>
                   </div>
                 </ProfileFormCard>
 
@@ -575,34 +652,53 @@ const ProfilePage = () => {
                   onSubmit={handleUpdateEmail}
                   updating={updating === 'email'}
                 >
-                  <div className="space-y-2">
-                    <label className="block text-sm font-semibold text-gray-300">
-                      Yeni E-posta
-                    </label>
-                    <input
-                      type="email"
-                      value={emailForm.email}
-                      onChange={(e) => setEmailForm(prev => ({ ...prev, email: e.target.value }))}
-                      className="w-full px-4 py-3 rounded-xl text-white placeholder-gray-500 focus:outline-none transition-all duration-300 font-medium"
+                  <motion.div 
+                    className="space-y-3"
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.1 }}
+                  >
+                    <div className="flex items-center gap-2">
+                      <motion.div
+                        className="w-1.5 h-1.5 rounded-full"
+                        style={{
+                          background: 'linear-gradient(135deg, rgba(249, 115, 22, 1), rgba(251, 146, 60, 1))',
+                          boxShadow: '0 0 8px rgba(249, 115, 22, 0.6)',
+                        }}
+                        animate={{
+                          scale: [1, 1.4, 1],
+                        }}
+                        transition={{ duration: 1.5, repeat: Infinity }}
+                      />
+                      <label className="block text-xs font-bold text-orange-300 uppercase tracking-wider">
+                        Yeni E-posta
+                      </label>
+                    </div>
+                    <div
+                      className="rounded-xl p-4 border relative overflow-hidden"
                       style={{
-                        background: 'rgba(0, 0, 0, 0.6)',
-                        border: '1.5px solid rgba(249, 115, 22, 0.25)',
-                        boxShadow: 'inset 0 2px 4px rgba(0,0,0,0.2)',
+                        background: 'linear-gradient(135deg, rgba(249, 115, 22, 0.15), rgba(251, 146, 60, 0.1))',
+                        border: '1px solid rgba(249, 115, 22, 0.3)',
+                        boxShadow: '0 4px 12px rgba(249, 115, 22, 0.15)',
                       }}
-                      onFocus={(e) => {
-                        e.currentTarget.style.borderColor = 'rgba(249, 115, 22, 0.6)';
-                        e.currentTarget.style.boxShadow = '0 0 0 4px rgba(249, 115, 22, 0.1), inset 0 2px 4px rgba(0,0,0,0.2)';
-                        e.currentTarget.style.background = 'rgba(0, 0, 0, 0.7)';
-                      }}
-                      onBlur={(e) => {
-                        e.currentTarget.style.borderColor = 'rgba(249, 115, 22, 0.25)';
-                        e.currentTarget.style.boxShadow = 'inset 0 2px 4px rgba(0,0,0,0.2)';
-                        e.currentTarget.style.background = 'rgba(0, 0, 0, 0.6)';
-                      }}
-                      placeholder="Yeni e-posta adresinizi girin"
-                      required
-                    />
-                  </div>
+                    >
+                      <motion.div
+                        className="absolute inset-0 bg-gradient-to-br from-orange-500/10 to-transparent"
+                        animate={{
+                          opacity: [0.2, 0.4, 0.2],
+                        }}
+                        transition={{ duration: 2, repeat: Infinity }}
+                      />
+                      <input
+                        type="email"
+                        value={emailForm.email}
+                        onChange={(e) => setEmailForm(prev => ({ ...prev, email: e.target.value }))}
+                        className="w-full bg-transparent text-white placeholder-gray-500 focus:outline-none font-medium text-sm relative z-10"
+                        placeholder="Yeni e-posta adresinizi girin"
+                        required
+                      />
+                    </div>
+                  </motion.div>
                 </ProfileFormCard>
               </div>
 
@@ -616,122 +712,179 @@ const ProfilePage = () => {
                 updating={updating === 'password'}
                 className="mt-4 sm:mt-5"
               >
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                  <div className="space-y-2">
-                    <label className="block text-sm font-semibold text-gray-300">
-                      Mevcut Şifre
-                    </label>
-                    <div className="relative">
-                      <input
-                        type={showCurrentPassword ? "text" : "password"}
-                        value={passwordForm.currentPassword}
-                        onChange={(e) => setPasswordForm(prev => ({ ...prev, currentPassword: e.target.value }))}
-                        className="w-full px-4 py-3 pr-11 rounded-xl text-white placeholder-gray-500 focus:outline-none transition-all duration-300 font-medium"
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+                  <motion.div 
+                    className="space-y-3"
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.1 }}
+                  >
+                    <div className="flex items-center gap-2">
+                      <motion.div
+                        className="w-1.5 h-1.5 rounded-full"
                         style={{
-                          background: 'rgba(0, 0, 0, 0.6)',
-                          border: '1.5px solid rgba(249, 115, 22, 0.25)',
-                          boxShadow: 'inset 0 2px 4px rgba(0,0,0,0.2)',
+                          background: 'linear-gradient(135deg, rgba(249, 115, 22, 1), rgba(251, 146, 60, 1))',
+                          boxShadow: '0 0 8px rgba(249, 115, 22, 0.6)',
                         }}
-                        onFocus={(e) => {
-                          e.currentTarget.style.borderColor = 'rgba(249, 115, 22, 0.6)';
-                          e.currentTarget.style.boxShadow = '0 0 0 4px rgba(249, 115, 22, 0.1), inset 0 2px 4px rgba(0,0,0,0.2)';
-                          e.currentTarget.style.background = 'rgba(0, 0, 0, 0.7)';
+                        animate={{
+                          scale: [1, 1.4, 1],
                         }}
-                        onBlur={(e) => {
-                          e.currentTarget.style.borderColor = 'rgba(249, 115, 22, 0.25)';
-                          e.currentTarget.style.boxShadow = 'inset 0 2px 4px rgba(0,0,0,0.2)';
-                          e.currentTarget.style.background = 'rgba(0, 0, 0, 0.6)';
-                        }}
-                        placeholder="Mevcut şifrenizi girin"
-                        required
+                        transition={{ duration: 1.5, repeat: Infinity }}
                       />
-                      <button
-                        type="button"
-                        onClick={() => setShowCurrentPassword(!showCurrentPassword)}
-                        className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-orange-300 transition-all duration-200 p-1.5 rounded-lg hover:bg-orange-300/10"
-                      >
-                        {showCurrentPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
-                      </button>
+                      <label className="block text-xs font-bold text-orange-300 uppercase tracking-wider">
+                        Mevcut Şifre
+                      </label>
                     </div>
-                  </div>
+                    <div
+                      className="rounded-xl p-4 border relative overflow-hidden"
+                      style={{
+                        background: 'linear-gradient(135deg, rgba(249, 115, 22, 0.15), rgba(251, 146, 60, 0.1))',
+                        border: '1px solid rgba(249, 115, 22, 0.3)',
+                        boxShadow: '0 4px 12px rgba(249, 115, 22, 0.15)',
+                      }}
+                    >
+                      <motion.div
+                        className="absolute inset-0 bg-gradient-to-br from-orange-500/10 to-transparent"
+                        animate={{
+                          opacity: [0.2, 0.4, 0.2],
+                        }}
+                        transition={{ duration: 2, repeat: Infinity }}
+                      />
+                      <div className="relative z-10 flex items-center gap-2">
+                        <input
+                          type={showCurrentPassword ? "text" : "password"}
+                          value={passwordForm.currentPassword}
+                          onChange={(e) => setPasswordForm(prev => ({ ...prev, currentPassword: e.target.value }))}
+                          className="flex-1 bg-transparent text-white placeholder-gray-500 focus:outline-none font-medium text-sm"
+                          placeholder="Mevcut şifrenizi girin"
+                          required
+                        />
+                        <button
+                          type="button"
+                          onClick={() => setShowCurrentPassword(!showCurrentPassword)}
+                          className="text-gray-400 hover:text-orange-300 transition-colors duration-200 p-1.5 rounded-lg hover:bg-orange-300/10"
+                        >
+                          {showCurrentPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                        </button>
+                      </div>
+                    </div>
+                  </motion.div>
 
-                  <div className="space-y-2">
-                    <label className="block text-sm font-semibold text-gray-300">
-                      Yeni Şifre
-                    </label>
-                    <div className="relative">
-                      <input
-                        type={showNewPassword ? "text" : "password"}
-                        value={passwordForm.newPassword}
-                        onChange={(e) => setPasswordForm(prev => ({ ...prev, newPassword: e.target.value }))}
-                        className="w-full px-4 py-3 pr-11 rounded-xl text-white placeholder-gray-500 focus:outline-none transition-all duration-300 font-medium"
+                  <motion.div 
+                    className="space-y-3"
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.15 }}
+                  >
+                    <div className="flex items-center gap-2">
+                      <motion.div
+                        className="w-1.5 h-1.5 rounded-full"
                         style={{
-                          background: 'rgba(0, 0, 0, 0.6)',
-                          border: '1.5px solid rgba(249, 115, 22, 0.25)',
-                          boxShadow: 'inset 0 2px 4px rgba(0,0,0,0.2)',
+                          background: 'linear-gradient(135deg, rgba(249, 115, 22, 1), rgba(251, 146, 60, 1))',
+                          boxShadow: '0 0 8px rgba(249, 115, 22, 0.6)',
                         }}
-                        onFocus={(e) => {
-                          e.currentTarget.style.borderColor = 'rgba(249, 115, 22, 0.6)';
-                          e.currentTarget.style.boxShadow = '0 0 0 4px rgba(249, 115, 22, 0.1), inset 0 2px 4px rgba(0,0,0,0.2)';
-                          e.currentTarget.style.background = 'rgba(0, 0, 0, 0.7)';
+                        animate={{
+                          scale: [1, 1.4, 1],
                         }}
-                        onBlur={(e) => {
-                          e.currentTarget.style.borderColor = 'rgba(249, 115, 22, 0.25)';
-                          e.currentTarget.style.boxShadow = 'inset 0 2px 4px rgba(0,0,0,0.2)';
-                          e.currentTarget.style.background = 'rgba(0, 0, 0, 0.6)';
-                        }}
-                        placeholder="Yeni şifrenizi girin"
-                        required
-                        minLength={6}
+                        transition={{ duration: 1.5, repeat: Infinity, delay: 0.2 }}
                       />
-                      <button
-                        type="button"
-                        onClick={() => setShowNewPassword(!showNewPassword)}
-                        className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-orange-300 transition-all duration-200 p-1.5 rounded-lg hover:bg-orange-300/10"
-                      >
-                        {showNewPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
-                      </button>
+                      <label className="block text-xs font-bold text-orange-300 uppercase tracking-wider">
+                        Yeni Şifre
+                      </label>
                     </div>
-                  </div>
+                    <div
+                      className="rounded-xl p-4 border relative overflow-hidden"
+                      style={{
+                        background: 'linear-gradient(135deg, rgba(249, 115, 22, 0.15), rgba(251, 146, 60, 0.1))',
+                        border: '1px solid rgba(249, 115, 22, 0.3)',
+                        boxShadow: '0 4px 12px rgba(249, 115, 22, 0.15)',
+                      }}
+                    >
+                      <motion.div
+                        className="absolute inset-0 bg-gradient-to-br from-orange-500/10 to-transparent"
+                        animate={{
+                          opacity: [0.2, 0.4, 0.2],
+                        }}
+                        transition={{ duration: 2, repeat: Infinity, delay: 0.3 }}
+                      />
+                      <div className="relative z-10 flex items-center gap-2">
+                        <input
+                          type={showNewPassword ? "text" : "password"}
+                          value={passwordForm.newPassword}
+                          onChange={(e) => setPasswordForm(prev => ({ ...prev, newPassword: e.target.value }))}
+                          className="flex-1 bg-transparent text-white placeholder-gray-500 focus:outline-none font-medium text-sm"
+                          placeholder="Yeni şifrenizi girin"
+                          required
+                          minLength={6}
+                        />
+                        <button
+                          type="button"
+                          onClick={() => setShowNewPassword(!showNewPassword)}
+                          className="text-gray-400 hover:text-orange-300 transition-colors duration-200 p-1.5 rounded-lg hover:bg-orange-300/10"
+                        >
+                          {showNewPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                        </button>
+                      </div>
+                    </div>
+                  </motion.div>
 
-                  <div className="space-y-2">
-                    <label className="block text-sm font-semibold text-gray-300">
-                      Yeni Şifre Tekrar
-                    </label>
-                    <div className="relative">
-                      <input
-                        type={showConfirmPassword ? "text" : "password"}
-                        value={passwordForm.confirmPassword}
-                        onChange={(e) => setPasswordForm(prev => ({ ...prev, confirmPassword: e.target.value }))}
-                        className="w-full px-4 py-3 pr-11 rounded-xl text-white placeholder-gray-500 focus:outline-none transition-all duration-300 font-medium"
+                  <motion.div 
+                    className="space-y-3"
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.2 }}
+                  >
+                    <div className="flex items-center gap-2">
+                      <motion.div
+                        className="w-1.5 h-1.5 rounded-full"
                         style={{
-                          background: 'rgba(0, 0, 0, 0.6)',
-                          border: '1.5px solid rgba(249, 115, 22, 0.25)',
-                          boxShadow: 'inset 0 2px 4px rgba(0,0,0,0.2)',
+                          background: 'linear-gradient(135deg, rgba(249, 115, 22, 1), rgba(251, 146, 60, 1))',
+                          boxShadow: '0 0 8px rgba(249, 115, 22, 0.6)',
                         }}
-                        onFocus={(e) => {
-                          e.currentTarget.style.borderColor = 'rgba(249, 115, 22, 0.6)';
-                          e.currentTarget.style.boxShadow = '0 0 0 4px rgba(249, 115, 22, 0.1), inset 0 2px 4px rgba(0,0,0,0.2)';
-                          e.currentTarget.style.background = 'rgba(0, 0, 0, 0.7)';
+                        animate={{
+                          scale: [1, 1.4, 1],
                         }}
-                        onBlur={(e) => {
-                          e.currentTarget.style.borderColor = 'rgba(249, 115, 22, 0.25)';
-                          e.currentTarget.style.boxShadow = 'inset 0 2px 4px rgba(0,0,0,0.2)';
-                          e.currentTarget.style.background = 'rgba(0, 0, 0, 0.6)';
-                        }}
-                        placeholder="Yeni şifrenizi tekrar girin"
-                        required
-                        minLength={6}
+                        transition={{ duration: 1.5, repeat: Infinity, delay: 0.4 }}
                       />
-                      <button
-                        type="button"
-                        onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                        className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-orange-300 transition-all duration-200 p-1.5 rounded-lg hover:bg-orange-300/10"
-                      >
-                        {showConfirmPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
-                      </button>
+                      <label className="block text-xs font-bold text-orange-300 uppercase tracking-wider">
+                        Yeni Şifre Tekrar
+                      </label>
                     </div>
-                  </div>
+                    <div
+                      className="rounded-xl p-4 border relative overflow-hidden"
+                      style={{
+                        background: 'linear-gradient(135deg, rgba(249, 115, 22, 0.15), rgba(251, 146, 60, 0.1))',
+                        border: '1px solid rgba(249, 115, 22, 0.3)',
+                        boxShadow: '0 4px 12px rgba(249, 115, 22, 0.15)',
+                      }}
+                    >
+                      <motion.div
+                        className="absolute inset-0 bg-gradient-to-br from-orange-500/10 to-transparent"
+                        animate={{
+                          opacity: [0.2, 0.4, 0.2],
+                        }}
+                        transition={{ duration: 2, repeat: Infinity, delay: 0.5 }}
+                      />
+                      <div className="relative z-10 flex items-center gap-2">
+                        <input
+                          type={showConfirmPassword ? "text" : "password"}
+                          value={passwordForm.confirmPassword}
+                          onChange={(e) => setPasswordForm(prev => ({ ...prev, confirmPassword: e.target.value }))}
+                          className="flex-1 bg-transparent text-white placeholder-gray-500 focus:outline-none font-medium text-sm"
+                          placeholder="Yeni şifrenizi tekrar girin"
+                          required
+                          minLength={6}
+                        />
+                        <button
+                          type="button"
+                          onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                          className="text-gray-400 hover:text-orange-300 transition-colors duration-200 p-1.5 rounded-lg hover:bg-orange-300/10"
+                        >
+                          {showConfirmPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                        </button>
+                      </div>
+                    </div>
+                  </motion.div>
                 </div>
               </ProfileFormCard>
               </div>
@@ -759,146 +912,223 @@ interface ProfileFormCardProps {
 }
 
 const ProfileFormCard = ({ number, icon: Icon, title, description, onSubmit, updating, children, className = '' }: ProfileFormCardProps) => {
+  const [isHovered, setIsHovered] = useState(false);
+
   return (
-    <div
-      className={`group relative rounded-2xl overflow-hidden transition-all duration-300 ${className}`}
+    <motion.div
+      className={`group relative overflow-hidden transition-all duration-300 h-full flex flex-col rounded-2xl ${className}`}
       style={{
-        background: 'rgba(0, 0, 0, 0.75)',
-        border: '1px solid rgba(75, 85, 99, 0.3)',
-        boxShadow: '0 8px 32px rgba(0,0,0,0.4), 0 2px 8px rgba(0,0,0,0.2)',
-        backdropFilter: 'blur(16px)',
+        background: isHovered
+          ? 'linear-gradient(135deg, rgba(17, 24, 39, 0.98) 0%, rgba(31, 41, 55, 0.95) 100%)'
+          : 'linear-gradient(135deg, rgba(17, 24, 39, 0.9) 0%, rgba(31, 41, 55, 0.8) 100%)',
+        border: isHovered
+          ? '2px solid rgba(249, 115, 22, 0.6)'
+          : '1px solid rgba(75, 85, 99, 0.3)',
+        backdropFilter: 'blur(12px)',
+        boxShadow: isHovered
+          ? '0 25px 80px rgba(249, 115, 22, 0.4), 0 0 60px rgba(249, 115, 22, 0.2)'
+          : '0 8px 32px rgba(0, 0, 0, 0.4)',
+        borderRadius: '24px',
       }}
-      onMouseEnter={(e) => {
-        e.currentTarget.style.borderColor = 'rgba(249, 115, 22, 0.4)';
-        e.currentTarget.style.boxShadow = '0 12px 40px rgba(249,115,22,0.15), 0 4px 16px rgba(0,0,0,0.3)';
-      }}
-      onMouseLeave={(e) => {
-        e.currentTarget.style.borderColor = 'rgba(75, 85, 99, 0.3)';
-        e.currentTarget.style.boxShadow = '0 8px 32px rgba(0,0,0,0.4), 0 2px 8px rgba(0,0,0,0.2)';
-      }}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+      whileHover={{ y: -4 }}
     >
-      {/* Orange accent line at top */}
-      <div 
+      {/* Top Accent Line */}
+      <motion.div
         className="absolute top-0 left-0 right-0 h-1"
         style={{
-          background: 'linear-gradient(90deg, rgba(249, 115, 22, 0.6), rgba(249, 115, 22, 0.3), transparent)',
+          background: isHovered
+            ? 'linear-gradient(90deg, transparent, rgba(249, 115, 22, 0.8), rgba(251, 146, 60, 0.8), rgba(249, 115, 22, 0.8), transparent)'
+            : 'linear-gradient(90deg, transparent, rgba(249, 115, 22, 0.3), transparent)',
+        }}
+        animate={{
+          backgroundPosition: isHovered ? ['0%', '100%', '0%'] : '0%',
+        }}
+        transition={{ duration: 3, repeat: Infinity }}
+      />
+
+      {/* Shine Effect */}
+      <motion.div
+        className="absolute inset-0 z-10 pointer-events-none"
+        initial={{ x: '-100%' }}
+        animate={{ x: isHovered ? '100%' : '-100%' }}
+        transition={{ duration: 0.8 }}
+        style={{
+          background: 'linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.15), transparent)',
         }}
       />
 
-      <div className="p-6 sm:p-7 flex flex-col h-full">
+      {/* Corner Accents */}
+      <div className="absolute top-0 left-0 w-20 h-20 opacity-20">
+        <div className="absolute top-2 left-2 w-12 h-12 border-t-2 border-l-2 border-orange-400 rounded-tl-lg" />
+      </div>
+      <div className="absolute bottom-0 right-0 w-20 h-20 opacity-20">
+        <div className="absolute bottom-2 right-2 w-12 h-12 border-b-2 border-r-2 border-orange-400 rounded-br-lg" />
+      </div>
+
+      <div className="p-6 flex-1 flex flex-col relative z-10">
         {/* Header */}
-        <div className="flex items-start gap-4 mb-5">
-          {/* Number Badge - Larger and more prominent */}
+        <div className="flex items-center justify-between gap-3 mb-4">
+          {/* Icon - Enhanced */}
           <div 
-            className="relative w-14 h-14 rounded-xl flex items-center justify-center text-white font-black text-lg flex-shrink-0 shadow-lg"
+            className="w-14 h-14 rounded-2xl flex items-center justify-center flex-shrink-0 relative overflow-hidden"
             style={{
-              background: 'linear-gradient(135deg, rgba(249, 115, 22, 0.3), rgba(249, 115, 22, 0.15))',
-              border: '2px solid rgba(249, 115, 22, 0.4)',
-              boxShadow: '0 4px 12px rgba(249, 115, 22, 0.2), inset 0 1px 0 rgba(255,255,255,0.1)',
+              background: isHovered
+                ? 'linear-gradient(135deg, rgba(249, 115, 22, 0.25), rgba(251, 146, 60, 0.2))'
+                : 'rgba(249, 115, 22, 0.15)',
+              border: isHovered
+                ? '2px solid rgba(249, 115, 22, 0.5)'
+                : '1px solid rgba(249, 115, 22, 0.3)',
+              boxShadow: isHovered
+                ? '0 8px 24px rgba(249, 115, 22, 0.3)'
+                : '0 2px 8px rgba(249, 115, 22, 0.15)',
             }}
           >
-            <span className="relative z-10">{number}</span>
-            {/* Glow effect */}
-            <div 
-              className="absolute inset-0 rounded-xl opacity-50 blur-sm"
-              style={{
-                background: 'rgba(249, 115, 22, 0.3)',
+            <motion.div
+              className="absolute inset-0 bg-gradient-to-br from-orange-400/30 to-transparent"
+              animate={{
+                scale: isHovered ? [1, 1.2, 1] : 1,
+                opacity: isHovered ? [0.3, 0.6, 0.3] : 0.2,
               }}
+              transition={{ duration: 2, repeat: Infinity }}
             />
+            <Icon className="h-7 w-7 text-orange-300 relative z-10" />
           </div>
           
-          {/* Icon and Title Container */}
-          <div className="flex-1 min-w-0">
-            <div className="flex items-center gap-3 mb-2">
-              {/* Icon */}
-              <div 
-                className="w-11 h-11 rounded-xl flex items-center justify-center flex-shrink-0 transition-all duration-300 group-hover:scale-110"
-                style={{
-                  background: 'linear-gradient(135deg, rgba(249, 115, 22, 0.2), rgba(249, 115, 22, 0.1))',
-                  border: '1.5px solid rgba(249, 115, 22, 0.3)',
-                  boxShadow: '0 4px 8px rgba(249, 115, 22, 0.15)',
-                }}
-              >
-                <Icon className="h-6 w-6 text-orange-300" />
-              </div>
-              
-              {/* Title */}
-              <h3 className="text-white font-bold text-xl leading-tight">
-                {title}
-              </h3>
-            </div>
-            
-            {/* Description */}
-            <p className="text-gray-400 text-sm leading-relaxed pl-14">
-              {description}
-            </p>
+          {/* Number Badge - Enhanced */}
+          <div 
+            className="w-14 h-14 rounded-2xl flex items-center justify-center text-white font-black text-lg flex-shrink-0 relative overflow-hidden"
+            style={{
+              background: 'linear-gradient(135deg, rgba(249, 115, 22, 1), rgba(251, 146, 60, 1))',
+              boxShadow: isHovered
+                ? '0 8px 24px rgba(249, 115, 22, 0.5)'
+                : '0 4px 16px rgba(249, 115, 22, 0.3)',
+            }}
+          >
+            <motion.div
+              className="absolute inset-0 bg-gradient-to-br from-white/20 to-transparent"
+              animate={{
+                scale: [1, 1.2, 1],
+                opacity: [0.3, 0.6, 0.3]
+              }}
+              transition={{ duration: 2, repeat: Infinity }}
+            />
+            <span className="relative z-10">{number}</span>
           </div>
         </div>
 
-        {/* Divider */}
-        <div 
-          className="h-px mb-5"
-          style={{
-            background: 'linear-gradient(90deg, transparent, rgba(249, 115, 22, 0.2), transparent)',
-          }}
-        />
+        {/* Title & Description */}
+        <div className="space-y-2 mb-5">
+          <motion.h3 
+            className="text-white font-black text-xl mb-1 leading-tight transition-colors"
+            style={{ color: isHovered ? 'rgb(251, 146, 60)' : 'rgb(255, 255, 255)' }}
+          >
+            {title}
+          </motion.h3>
+          <p className="text-gray-400 text-sm leading-relaxed font-medium">
+            {description}
+          </p>
+        </div>
+
+        {/* Divider with gradient */}
+        <div className="flex items-center gap-2 mb-5">
+          <div className="h-px flex-1 bg-gradient-to-r from-transparent via-orange-500/30 to-transparent" />
+          <motion.div
+            className="w-2 h-2 rounded-full"
+            style={{
+              background: 'linear-gradient(135deg, rgba(249, 115, 22, 1), rgba(251, 146, 60, 1))',
+              boxShadow: '0 0 8px rgba(249, 115, 22, 0.6)',
+            }}
+            animate={{
+              scale: [1, 1.3, 1],
+              opacity: [0.6, 1, 0.6],
+            }}
+            transition={{ duration: 2, repeat: Infinity }}
+          />
+          <div className="h-px flex-1 bg-gradient-to-r from-transparent via-orange-500/30 to-transparent" />
+        </div>
 
         {/* Form */}
         <form onSubmit={onSubmit} className="flex-1 flex flex-col space-y-5">
-          {children}
+          {/* Form Content - Premium Styled */}
+          <div className="space-y-5 flex-1">
+            {children}
+          </div>
           
-          {/* Submit Button - Enhanced */}
-          <motion.button
-            type="submit"
-            disabled={updating}
-            className="relative w-full font-bold text-black py-3.5 px-5 rounded-xl transition-all duration-300 flex items-center justify-center gap-2.5 disabled:opacity-50 disabled:cursor-not-allowed overflow-hidden mt-6 group/btn"
-            style={{
-              background: 'linear-gradient(135deg, rgba(249, 115, 22, 1), rgba(249, 115, 22, 0.9), rgba(249, 115, 22, 1))',
-              boxShadow: '0 8px 24px rgba(249,115,22,0.4), inset 0 1px 0 rgba(255,255,255,0.3)',
-            }}
-            whileHover={{ scale: updating ? 1 : 1.02, y: updating ? 0 : -2 }}
-            whileTap={{ scale: 0.98 }}
-            onMouseEnter={(e) => {
-              if (!updating) {
-                e.currentTarget.style.boxShadow = '0 12px 32px rgba(249,115,22,0.5), inset 0 1px 0 rgba(255,255,255,0.4)';
-              }
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.boxShadow = '0 8px 24px rgba(249,115,22,0.4), inset 0 1px 0 rgba(255,255,255,0.3)';
-            }}
-          >
-            {/* Shine effect on hover */}
-            <div 
-              className="absolute inset-0 opacity-0 group-hover/btn:opacity-100 transition-opacity duration-700 pointer-events-none"
+          {/* Submit Button - Premium Design */}
+          <div className="mt-auto pt-6 border-t relative" style={{ borderColor: 'rgba(75, 85, 99, 0.3)' }}>
+            <motion.div
+              className="relative overflow-hidden rounded-xl p-4 cursor-pointer"
               style={{
-                background: 'linear-gradient(110deg, transparent 40%, rgba(255,255,255,0.4) 50%, transparent 60%)',
+                background: updating
+                  ? 'linear-gradient(135deg, rgba(75, 85, 99, 0.25), rgba(55, 65, 81, 0.2))'
+                  : isHovered
+                  ? 'linear-gradient(135deg, rgba(249, 115, 22, 0.25), rgba(251, 146, 60, 0.2))'
+                  : 'linear-gradient(135deg, rgba(249, 115, 22, 0.15), rgba(251, 146, 60, 0.1))',
+                border: updating
+                  ? '2px solid rgba(75, 85, 99, 0.5)'
+                  : isHovered
+                  ? '2px solid rgba(249, 115, 22, 0.5)'
+                  : '1px solid rgba(249, 115, 22, 0.3)',
+                boxShadow: isHovered && !updating
+                  ? '0 8px 24px rgba(249, 115, 22, 0.3)' 
+                  : '0 4px 12px rgba(249, 115, 22, 0.15)',
               }}
-            />
-            
-            {updating ? (
-              <>
-                <div className="w-5 h-5 border-[3px] border-black border-t-transparent rounded-full animate-spin"></div>
-                <span className="text-sm">Güncelleniyor...</span>
-              </>
-            ) : (
-              <>
-                <Save className="h-5 w-5 relative z-10" />
-                <span className="text-sm relative z-10">Güncelle</span>
-              </>
-            )}
-          </motion.button>
+              whileHover={{ scale: updating ? 1 : 1.01 }}
+              whileTap={{ scale: 0.99 }}
+              transition={{ duration: 0.2 }}
+            >
+              {/* Background Animation */}
+              {!updating && (
+                <motion.div
+                  className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent"
+                  initial={{ x: '-100%' }}
+                  animate={{ x: isHovered ? '100%' : '-100%' }}
+                  transition={{ duration: 1.5, repeat: isHovered ? Infinity : 0, repeatDelay: 0.5 }}
+                />
+              )}
+              
+              <motion.button
+                type="submit"
+                disabled={updating}
+                className="w-full"
+              >
+                <div className="flex items-center justify-between relative z-10">
+                  <div className="flex flex-col gap-1">
+                    <span className="text-xs font-bold text-gray-400 uppercase tracking-wider">
+                      {updating ? 'Güncelleniyor' : 'Değişiklikleri Kaydet'}
+                    </span>
+                    <span className="text-sm font-black text-orange-300">
+                      {updating ? 'Lütfen bekleyin...' : 'Hemen Güncelle'}
+                    </span>
+                  </div>
+                  
+                  <div 
+                    className="flex items-center gap-2 px-4 py-2.5 rounded-lg"
+                    style={{
+                      background: 'rgba(249, 115, 22, 0.3)',
+                      border: '1px solid rgba(249, 115, 22, 0.5)',
+                      boxShadow: '0 4px 12px rgba(249, 115, 22, 0.2)',
+                    }}
+                  >
+                    {updating ? (
+                      <motion.div
+                        className="w-5 h-5 border-2 border-orange-200 border-t-transparent rounded-full"
+                        animate={{ rotate: 360 }}
+                        transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
+                      />
+                    ) : (
+                      <Save className="h-5 w-5 text-orange-200" />
+                    )}
+                  </div>
+                </div>
+              </motion.button>
+            </motion.div>
+          </div>
         </form>
       </div>
-
-      {/* Corner decoration */}
-      <div 
-        className="absolute top-0 right-0 w-20 h-20 opacity-10 pointer-events-none"
-        style={{
-          background: 'radial-gradient(circle, rgba(249, 115, 22, 0.4), transparent)',
-          transform: 'translate(30%, -30%)',
-        }}
-      />
-    </div>
+    </motion.div>
   );
 };
 

@@ -30,7 +30,7 @@ const CategoriesSection = ({ categories }: CategoriesSectionProps) => {
     <section className="relative w-full">
       {/* Enhanced Header */}
       <motion.div 
-        className="mb-8"
+        className="mb-6"
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6, delay: 0.1 }}
@@ -80,7 +80,7 @@ const CategoriesSection = ({ categories }: CategoriesSectionProps) => {
         </div>
       </motion.div>
 
-      <div className="flex flex-wrap items-center justify-center gap-4 sm:gap-6 px-2">
+      <div className="flex flex-wrap items-center justify-center gap-4 sm:gap-5 px-2">
         {categories.map((category, index) => (
           <CategoryCard key={category.id || category.slug} category={category} index={index} />
         ))}
@@ -111,18 +111,18 @@ const CategoryCard = ({ category, index }: { category: Category; index: number }
       >
         {/* Premium Card Container */}
         <div
-          className="relative rounded-2xl p-4 transition-all duration-300 overflow-hidden"
+          className="relative rounded-2xl p-5 transition-all duration-300 overflow-hidden w-[140px] sm:w-[160px] h-[180px] sm:h-[200px] flex flex-col"
           style={{
             background: isHovered
-              ? 'linear-gradient(135deg, rgba(249, 115, 22, 0.15), rgba(59, 130, 246, 0.1))'
-              : 'rgba(0, 0, 0, 0.4)',
+              ? 'linear-gradient(135deg, rgba(31, 41, 55, 0.9) 0%, rgba(17, 24, 39, 0.95) 100%)'
+              : 'linear-gradient(135deg, rgba(31, 41, 55, 0.8) 0%, rgba(17, 24, 39, 0.9) 100%)',
             border: isHovered
               ? '2px solid rgba(249, 115, 22, 0.6)'
-              : '2px solid rgba(249, 115, 22, 0.2)',
+              : '1px solid rgba(75, 85, 99, 0.3)',
             boxShadow: isHovered
-              ? '0 12px 40px rgba(249, 115, 22, 0.3), 0 0 60px rgba(249, 115, 22, 0.15), inset 0 0 40px rgba(249, 115, 22, 0.05)'
-              : '0 4px 20px rgba(0, 0, 0, 0.3), 0 0 20px rgba(249, 115, 22, 0.1)',
-            backdropFilter: 'blur(16px)',
+              ? '0 20px 60px rgba(249, 115, 22, 0.4), 0 0 60px rgba(249, 115, 22, 0.2)'
+              : '0 8px 32px rgba(0, 0, 0, 0.4)',
+            backdropFilter: 'blur(10px)',
           }}
         >
           {/* Animated Background Gradient */}
@@ -150,22 +150,23 @@ const CategoryCard = ({ category, index }: { category: Category; index: number }
             />
           )}
 
-          <div className="relative z-10 flex flex-col items-center gap-3">
+          <div className="relative z-10 flex flex-col items-center justify-between h-full">
             {/* Large Circular Image/Icon */}
             <motion.div
-              className="relative w-20 h-20 sm:w-24 sm:h-24 rounded-full overflow-hidden flex items-center justify-center transition-all duration-300"
+              className="relative w-20 h-20 sm:w-24 sm:h-24 rounded-full overflow-hidden flex items-center justify-center transition-all duration-300 flex-shrink-0"
               animate={{
                 rotate: isHovered ? 5 : 0,
+                scale: isHovered ? 1.05 : 1,
               }}
               style={{
                 background: isHovered
-                  ? 'linear-gradient(135deg, rgba(249, 115, 22, 0.4), rgba(59, 130, 246, 0.4))'
-                  : 'linear-gradient(135deg, rgba(249, 115, 22, 0.2), rgba(59, 130, 246, 0.15))',
+                  ? 'linear-gradient(135deg, rgba(249, 115, 22, 0.4), rgba(251, 146, 60, 0.3))'
+                  : 'linear-gradient(135deg, rgba(249, 115, 22, 0.2), rgba(251, 146, 60, 0.15))',
                 border: isHovered
                   ? '3px solid rgba(249, 115, 22, 0.8)'
-                  : '3px solid rgba(249, 115, 22, 0.4)',
+                  : '2px solid rgba(249, 115, 22, 0.4)',
                 boxShadow: isHovered
-                  ? '0 8px 32px rgba(249, 115, 22, 0.5), 0 0 40px rgba(249, 115, 22, 0.3), inset 0 0 20px rgba(249, 115, 22, 0.2)'
+                  ? '0 8px 32px rgba(249, 115, 22, 0.5), 0 0 40px rgba(249, 115, 22, 0.3)'
                   : '0 4px 16px rgba(0, 0, 0, 0.4), 0 0 20px rgba(249, 115, 22, 0.2)',
               }}
             >
@@ -219,11 +220,11 @@ const CategoryCard = ({ category, index }: { category: Category; index: number }
             </motion.div>
 
             {/* Category Name with Better Typography */}
-            <div className="text-center">
+            <div className="text-center w-full flex-shrink-0">
               <motion.h3
-                className="text-sm sm:text-base font-bold mb-1 transition-colors"
+                className="text-sm sm:text-base font-black mb-1.5 transition-colors line-clamp-2 min-h-[2.5rem]"
                 animate={{
-                  color: isHovered ? 'rgba(249, 115, 22, 1)' : 'rgba(255, 255, 255, 0.9)',
+                  color: isHovered ? 'rgb(251, 146, 60)' : 'rgb(255, 255, 255)',
                 }}
                 style={{
                   textShadow: isHovered 
@@ -236,14 +237,14 @@ const CategoryCard = ({ category, index }: { category: Category; index: number }
               
               {/* Arrow Indicator */}
               <motion.div
-                className="flex items-center justify-center gap-1"
+                className="flex items-center justify-center gap-1.5"
                 animate={{
-                  opacity: isHovered ? 1 : 0.5,
-                  x: isHovered ? 2 : 0,
+                  opacity: isHovered ? 1 : 0.6,
+                  x: isHovered ? 3 : 0,
                 }}
               >
-                <span className="text-[10px] text-gray-400 font-medium">Keşfet</span>
-                <ArrowRight className="h-3 w-3 text-orange-300" />
+                <span className="text-xs text-gray-400 font-semibold">Keşfet</span>
+                <ArrowRight className="h-3.5 w-3.5 text-orange-400" />
               </motion.div>
             </div>
           </div>
