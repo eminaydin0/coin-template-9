@@ -6,7 +6,8 @@ import {
   ArrowRight,
   Home,
   ChevronRight,
-  Layers
+  Grid3x3,
+  Sparkles
 } from 'lucide-react';
 import { getCategories } from '../services/api';
 import SEOHead from '../components/SEOHead';
@@ -64,56 +65,75 @@ const CategoriesPage = () => {
       {/* Common Background */}
       <CommonBackground />
 
+      {/* Background Glow */}
+      <div className="absolute -top-20 left-1/2 -translate-x-1/2 w-96 h-96 bg-orange-500/5 rounded-full blur-3xl pointer-events-none" />
+      
       <div className="w-full relative z-10">
-        {/* Header Section - Anasayfa Stili */}
-        <div className="w-full mb-8 px-4 sm:px-6 lg:px-8">
-          <div className="max-w-7xl mx-auto">
-            <div className="rounded-2xl backdrop-blur-xl bg-black/20 border border-white/10 p-6 shadow-2xl">
+        {/* Header */}
+        <div className="w-full mb-10 px-4 sm:px-6 lg:px-8">
+          <div className="w-full">
+            <div 
+              className="rounded-2xl p-8 relative overflow-hidden"
+              style={{
+                background: 'linear-gradient(135deg, rgba(31, 41, 55, 0.8) 0%, rgba(17, 24, 39, 0.9) 100%)',
+                border: '1px solid rgba(75, 85, 99, 0.3)',
+                backdropFilter: 'blur(10px)',
+                boxShadow: '0 8px 32px rgba(0, 0, 0, 0.4)',
+              }}
+            >
               {/* Breadcrumb */}
-              <div className="flex items-center justify-center sm:justify-start gap-1.5 text-xs mb-4">
+              <div className="flex items-center flex-wrap gap-2 text-sm mb-6 relative z-10">
                 <Link 
                   to="/" 
-                  className="flex items-center gap-1 text-gray-400 hover:text-orange-300 transition-colors"
+                  className="flex items-center gap-1.5 text-gray-400 hover:text-orange-400 transition-colors group"
                 >
-                  <Home className="h-3.5 w-3.5" />
+                  <Home className="h-4 w-4 group-hover:scale-110 transition-transform" />
                   <span>Ana Sayfa</span>
                 </Link>
-                <ChevronRight className="h-3.5 w-3.5 text-gray-600" />
-                <span className="text-gray-300 font-medium">Kategoriler</span>
+                <ChevronRight className="h-4 w-4 text-gray-600" />
+                <span className="text-orange-300 font-semibold">Kategoriler</span>
               </div>
 
               {/* Title Section */}
-              <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-                <div className="flex items-center gap-2">
-                  <div 
-                    className="w-7 h-7 rounded-lg flex items-center justify-center"
-                    style={{
-                      background: 'rgba(249, 115, 22, 0.15)',
-                      border: '1px solid rgba(249, 115, 22, 0.3)',
-                    }}
-                  >
-                    <Layers className="h-4 w-4 text-orange-300" />
+              <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6 relative z-10">
+                <div className="flex items-center gap-4">
+                  <div className="relative">
+                    <div 
+                      className="w-14 h-14 rounded-2xl flex items-center justify-center"
+                      style={{
+                        background: 'linear-gradient(135deg, rgba(249, 115, 22, 0.2) 0%, rgba(234, 88, 12, 0.15) 100%)',
+                        border: '1px solid rgba(249, 115, 22, 0.3)',
+                        boxShadow: '0 8px 32px rgba(249, 115, 22, 0.15)',
+                      }}
+                    >
+                      <Grid3x3 className="h-6 w-6 text-orange-400" />
+                    </div>
                   </div>
-                  <h1 className="text-xl sm:text-2xl font-bold text-white">
-                    <span className="bg-gradient-to-r from-orange-300 to-orange-400 bg-clip-text text-transparent">
+                  
+                  <div>
+                    <h1 className="text-2xl font-black text-white tracking-tight mb-1">
                       Oyun Kategorileri
-                    </span>
-                  </h1>
+                    </h1>
+                    <p className="text-gray-400 text-sm font-medium">
+                      Tüm oyun kategorilerini keşfedin ve istediğiniz oyunu bulun
+                    </p>
+                  </div>
                 </div>
 
-                {/* Badge */}
-                <div className="flex items-center gap-1.5">
-                  <span
-                    className="text-[10px] font-bold px-2.5 py-1 rounded-full"
+                {/* Stats Badge */}
+                <div className="flex items-center gap-3">
+                  <div
+                    className="px-4 py-2 rounded-xl flex items-center gap-2"
                     style={{
                       background: 'rgba(249, 115, 22, 0.15)',
                       border: '1px solid rgba(249, 115, 22, 0.3)',
-                      color: 'rgba(249, 115, 22, 0.95)',
-                      backdropFilter: 'blur(8px)',
                     }}
                   >
-                    {categories.length} KATEGORİ
-                  </span>
+                    <Sparkles className="h-4 w-4 text-orange-400" />
+                    <span className="text-orange-300 text-sm font-bold">
+                      {categories.length} Kategori
+                    </span>
+                  </div>
                 </div>
               </div>
             </div>
@@ -123,25 +143,27 @@ const CategoriesPage = () => {
         {/* Categories Grid */}
         <section className="relative py-4">
           <div className="px-4 sm:px-6 lg:px-8">
-            <div className="max-w-7xl mx-auto">
+            <div className="w-full">
               {categories.length === 0 ? (
                 <div 
-                  className="text-center py-16 rounded-2xl border"
+                  className="text-center py-24 rounded-2xl"
                   style={{
-                    background: 'rgba(0, 0, 0, 0.6)',
-                    border: '1px solid rgba(249, 115, 22, 0.2)',
-                    boxShadow: '0 4px 16px rgba(0,0,0,0.3)',
-                    backdropFilter: 'blur(12px)',
+                    background: 'linear-gradient(135deg, rgba(31, 41, 55, 0.8) 0%, rgba(17, 24, 39, 0.9) 100%)',
+                    border: '1px solid rgba(75, 85, 99, 0.3)',
+                    backdropFilter: 'blur(10px)',
+                    boxShadow: '0 8px 32px rgba(0, 0, 0, 0.4)',
                   }}
                 >
-                  <Gamepad2 className="h-12 w-12 text-orange-300/50 mx-auto mb-4" />
-                  <h3 className="text-xl font-bold text-white mb-2">
-                    Kategori bulunamadı
+                  <div className="w-24 h-24 rounded-3xl bg-gradient-to-br from-orange-500/20 to-orange-600/10 flex items-center justify-center mx-auto mb-6">
+                    <Gamepad2 className="h-12 w-12 text-orange-400/60" />
+                  </div>
+                  <h3 className="text-3xl font-black text-white mb-3">
+                    Kategori Bulunamadı
                   </h3>
-                  <p className="text-gray-400 text-sm">Yakında yeni kategoriler eklenecektir.</p>
+                  <p className="text-gray-400 text-lg">Yakında yeni kategoriler eklenecektir.</p>
                 </div>
               ) : (
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
                   {categories.map((category, index) => (
                     <CategoryCard key={category.id} category={category} index={index} />
                   ))}
@@ -170,100 +192,116 @@ const CategoryCard = ({ category, index }: { category: Category; index: number }
     >
       <Link 
         to={`/oyunlar/${category.slug}`}
-        className="block group"
+        className="block group h-full"
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
       >
         <motion.div
-          whileHover={{ y: -4 }}
-          className="relative rounded-xl border overflow-hidden transition-all duration-300 h-full flex flex-col"
+          className="relative overflow-hidden h-full flex flex-col rounded-2xl"
           style={{
-            background: isHovered
-              ? 'linear-gradient(135deg, rgba(249, 115, 22, 0.1), rgba(249, 115, 22, 0.05))'
-              : 'rgba(0, 0, 0, 0.6)',
-            border: isHovered
-              ? '1.5px solid rgba(249, 115, 22, 0.5)'
-              : '1px solid rgba(249, 115, 22, 0.2)',
-            boxShadow: isHovered
-              ? '0 8px 24px rgba(249, 115, 22, 0.25), 0 0 40px rgba(249, 115, 22, 0.1)'
-              : '0 2px 8px rgba(0, 0, 0, 0.3)',
-            backdropFilter: 'blur(12px)',
+            background: 'linear-gradient(135deg, rgba(31, 41, 55, 0.8) 0%, rgba(17, 24, 39, 0.9) 100%)',
+            border: '1px solid rgba(75, 85, 99, 0.3)',
+            backdropFilter: 'blur(10px)',
           }}
+          whileHover={{ 
+            y: -8,
+            boxShadow: '0 20px 60px rgba(249, 115, 22, 0.3)',
+            borderColor: 'rgba(249, 115, 22, 0.5)',
+          }}
+          transition={{ duration: 0.3 }}
         >
-          {/* Shine Effect */}
-          {isHovered && (
-            <motion.div
-              className="absolute inset-0 z-10"
-              initial={{ x: '-100%' }}
-              animate={{ x: '100%' }}
-              transition={{ duration: 0.6 }}
-              style={{
-                background: 'linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent)',
-              }}
-            />
-          )}
-          {/* Compact Category Image */}
-          <div className="relative h-32 overflow-hidden">
+          {/* Category Image */}
+          <div className="relative h-48 overflow-hidden rounded-t-2xl">
             {category.url && !imageError ? (
-              <img
+              <motion.img
                 src={category.url}
                 alt={category.name}
-                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                className="w-full h-full object-cover"
+                initial={{ scale: 1 }}
+                animate={{ scale: isHovered ? 1.08 : 1 }}
+                transition={{ duration: 0.4 }}
                 onError={() => setImageError(true)}
                 loading="lazy"
               />
             ) : (
-              <div className="w-full h-full bg-gradient-to-br from-orange-500/30 to-orange-600/20 flex items-center justify-center">
-                <Gamepad2 className="h-12 w-12 text-orange-300/50" />
+              <div className="w-full h-full bg-gradient-to-br from-orange-500/30 via-orange-600/20 to-orange-700/10 flex items-center justify-center">
+                <Gamepad2 className="h-16 w-16 text-orange-300/60" />
               </div>
             )}
 
-            <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent" />
+            {/* Gradient Overlay */}
+            <div className="absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/50 to-transparent" />
             
-            {/* Compact Product Count Badge */}
+            {/* Product Count Badge */}
             {category.productCount && category.productCount > 0 && (
-              <div
-                className="absolute top-2 right-2 rounded-lg px-2 py-1 z-10"
+              <motion.div
+                className="absolute top-3 right-3 rounded-lg px-3 py-1.5 z-10 flex items-center gap-1.5"
                 style={{
-                  background: 'rgba(249, 115, 22, 0.2)',
-                  border: '1px solid rgba(249, 115, 22, 0.35)',
-                  backdropFilter: 'blur(8px)',
+                  background: 'rgba(249, 115, 22, 0.9)',
+                  border: '1px solid rgba(251, 146, 60, 0.5)',
                 }}
+                initial={{ opacity: 0, x: 10 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: 0.1 }}
               >
-                <span className="text-white text-[10px] font-bold">{category.productCount}+ ürün</span>
-              </div>
+                <Sparkles className="h-3.5 w-3.5 text-white" />
+                <span className="text-white text-xs font-bold">{category.productCount}+ ürün</span>
+              </motion.div>
             )}
+
+            {/* Hover Overlay */}
+            <motion.div
+              className="absolute inset-0 bg-orange-500/0 pointer-events-none"
+              animate={{
+                background: isHovered ? 'rgba(249, 115, 22, 0.1)' : 'rgba(249, 115, 22, 0)',
+              }}
+              transition={{ duration: 0.3 }}
+            />
           </div>
 
-          {/* Compact Content */}
-          <div className="p-3 flex-1 flex flex-col">
-            {/* Title */}
-            <h3 className="text-white font-bold text-sm mb-1.5 line-clamp-2 leading-tight group-hover:text-orange-300 transition-colors">
+          {/* Content */}
+          <div className="p-4 flex-1 flex flex-col">
+            <h3 className="text-white font-bold text-base mb-auto line-clamp-2 leading-snug transition-colors duration-300"
+                style={{ color: isHovered ? 'rgb(251, 146, 60)' : 'rgb(255, 255, 255)' }}>
               {category.name}
             </h3>
-            
+
             {/* Description */}
             {category.description && (
-              <p className="text-gray-400 text-xs mb-3 line-clamp-2 leading-relaxed">
+              <p className="text-gray-400 text-sm mt-2 line-clamp-2 leading-relaxed">
                 {category.description}
               </p>
             )}
 
-            {/* Compact Action Button */}
-            <div className="mt-auto pt-2 border-t" style={{ borderColor: 'rgba(75,85,99,0.2)' }}>
-              <motion.div
-                className="flex items-center justify-between"
-                whileHover={{ x: 2 }}
-                transition={{ duration: 0.2 }}
-              >
-                <span className="text-[10px] font-medium text-gray-400">Kategoriyi Gör</span>
-                <div className="flex items-center gap-1.5">
-                  <span className="text-[10px] font-semibold text-orange-300">Keşfet</span>
-                  <ArrowRight className="h-3.5 w-3.5 text-orange-300" />
-                </div>
-              </motion.div>
+            {/* Action Section */}
+            <div className="mt-4 pt-4 border-t" style={{ borderColor: 'rgba(75, 85, 99, 0.3)' }}>
+              <div className="flex items-center justify-between">
+                <span className="text-gray-400 text-xs font-medium">Kategoriyi Gör</span>
+                <motion.div
+                  className="w-10 h-10 rounded-lg flex items-center justify-center"
+                  style={{
+                    background: 'rgba(249, 115, 22, 0.15)',
+                    border: '1px solid rgba(249, 115, 22, 0.3)',
+                  }}
+                  whileHover={{ 
+                    scale: 1.1,
+                    background: 'rgba(249, 115, 22, 0.25)',
+                  }}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  <ArrowRight className="h-5 w-5 text-orange-400" />
+                </motion.div>
+              </div>
             </div>
           </div>
+
+          {/* Shine Effect on Hover */}
+          <motion.div
+            className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent pointer-events-none"
+            initial={{ x: '-100%' }}
+            animate={{ x: isHovered ? '100%' : '-100%' }}
+            transition={{ duration: 0.6 }}
+          />
         </motion.div>
       </Link>
     </motion.div>

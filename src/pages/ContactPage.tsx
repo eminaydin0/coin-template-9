@@ -215,7 +215,7 @@ const ContactPage = () => {
         </section>
 
         {/* Call to Action Section */}
-        <CallToActionSection />
+        <CallToActionSection /> 
       </div>
     </div>
   );

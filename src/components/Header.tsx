@@ -21,7 +21,6 @@ import { useAuth } from '../context/AuthContext';
 import { useCart } from '../context/CartContext';
 import { useWebsite } from '../context/WebsiteContext';
 import { useCheckout } from '../context/CheckoutContext';
-import { getCategories } from '../services/api';
 
 interface HeaderProps {
   onOpenSearch: () => void;
@@ -42,20 +41,10 @@ const navLinks = [
  * - Clean typography
  * - Modern spacing and layout
  */
-interface Category {
-  id: string;
-  name: string;
-  slug: string;
-  url?: string;
-  description?: string;
-}
 
 const Header = ({ onOpenSearch, hideHeader = false }: HeaderProps) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
-  const [isGamesDropdownOpen, setIsGamesDropdownOpen] = useState(false);
-  const [isMobileGamesOpen, setIsMobileGamesOpen] = useState(false);
-  const [categories, setCategories] = useState<Category[]>([]);
   const [isCompact, setIsCompact] = useState(false);
   const { user, logout, isAuthenticated } = useAuth();
   const { getItemCount } = useCart();
@@ -65,7 +54,6 @@ const Header = ({ onOpenSearch, hideHeader = false }: HeaderProps) => {
   const { getInfoValue } = useWebsite();
 
   const userMenuRef = useRef<HTMLDivElement>(null);
-  const gamesDropdownRef = useRef<HTMLDivElement>(null);
 
   const isActive = (path: string) => (path === '/' ? location.pathname === '/' : location.pathname.startsWith(path));
 
@@ -79,32 +67,16 @@ const Header = ({ onOpenSearch, hideHeader = false }: HeaderProps) => {
   const toggleMenu = () => setIsMenuOpen((s) => !s);
   const toggleUserMenu = () => setIsUserMenuOpen((s) => !s);
 
-  // Kategorileri yükle
-  useEffect(() => {
-    const loadCategories = async () => {
-      try {
-        const response = await getCategories();
-        setCategories(response.data || []);
-      } catch (error) {
-        console.error('Kategoriler yüklenirken hata:', error);
-      }
-    };
-    loadCategories();
-  }, []);
-
-  // Dış tıklama ile kullanıcı menüsü ve games dropdown kapanır
+  // Dış tıklama ile kullanıcı menüsü kapanır
   useEffect(() => {
     const onClick = (e: MouseEvent) => {
       if (isUserMenuOpen && userMenuRef.current && !userMenuRef.current.contains(e.target as Node)) {
         setIsUserMenuOpen(false);
       }
-      if (isGamesDropdownOpen && gamesDropdownRef.current && !gamesDropdownRef.current.contains(e.target as Node)) {
-        setIsGamesDropdownOpen(false);
-      }
     };
     window.addEventListener('mousedown', onClick);
     return () => window.removeEventListener('mousedown', onClick);
-  }, [isUserMenuOpen, isGamesDropdownOpen]);
+  }, [isUserMenuOpen]);
 
   // Ctrl/⌘+K ile arama
   useEffect(() => {
@@ -162,111 +134,27 @@ const Header = ({ onOpenSearch, hideHeader = false }: HeaderProps) => {
 
             {/* Compact Desktop Navigation */}
             <nav className="hidden md:flex items-center gap-0.5">
-              {navLinks.map(({ href, label, icon: Icon }) => {
-                // Oyunlar için dropdown
-                if (href === '/oyunlar') {
-                  return (
-                    <div key={href} className="relative" ref={gamesDropdownRef}>
-                      <button
-                        onMouseEnter={() => setIsGamesDropdownOpen(true)}
-                        onMouseLeave={() => setIsGamesDropdownOpen(false)}
-                        className={`relative flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium transition-colors ${
-                          isActive(href)
-                            ? 'text-white bg-orange-500/20'
-                            : 'text-gray-300 hover:text-orange-300 hover:bg-orange-500/10'
-                        }`}
-                      >
-                        <Icon className="h-3.5 w-3.5" />
-                        <span>{label}</span>
-                        <ChevronDown className={`h-3 w-3 transition-transform ${isGamesDropdownOpen ? 'rotate-180' : ''}`} />
-                        {isActive(href) && (
-                          <motion.div
-                            layoutId="activeIndicator"
-                            className="absolute bottom-0 left-0 right-0 h-0.5 bg-orange-400 rounded-full"
-                            transition={{ type: 'spring', stiffness: 300, damping: 30 }}
-                          />
-                        )}
-                      </button>
-
-                      {/* Categories Dropdown */}
-                      <AnimatePresence>
-                        {isGamesDropdownOpen && categories.length > 0 && (
-                          <motion.div
-                            initial={{ opacity: 0, y: 10 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            exit={{ opacity: 0, y: 10 }}
-                            transition={{ duration: 0.2 }}
-                            onMouseEnter={() => setIsGamesDropdownOpen(true)}
-                            onMouseLeave={() => setIsGamesDropdownOpen(false)}
-                            className="absolute top-full left-0 mt-2 w-64 rounded-lg shadow-lg overflow-hidden z-50 backdrop-blur-xl"
-                            style={{
-                              background: 'linear-gradient(135deg, rgba(31, 41, 55, 0.95) 0%, rgba(17, 24, 39, 0.95) 100%)',
-                              border: '1px solid rgba(75, 85, 99, 0.3)',
-                            }}
-                          >
-                            <div className="p-2 max-h-[400px] overflow-y-auto">
-                              <Link
-                                to="/oyunlar"
-                                onClick={() => setIsGamesDropdownOpen(false)}
-                                className="flex items-center gap-2 px-3 py-2 rounded-lg text-xs font-semibold text-orange-300 hover:bg-orange-500/10 transition-colors mb-2 border-b border-gray-800 pb-2"
-                              >
-                                <Zap className="h-3.5 w-3.5" />
-                                <span>Tüm Kategoriler</span>
-                              </Link>
-                              <div className="space-y-1">
-                                {categories.map((category) => (
-                                  <Link
-                                    key={category.id}
-                                    to={`/oyunlar/${category.slug}`}
-                                    onClick={() => setIsGamesDropdownOpen(false)}
-                                    className="flex items-center gap-2.5 px-3 py-2 rounded-lg text-xs text-gray-300 hover:text-orange-300 hover:bg-orange-500/10 transition-colors"
-                                  >
-                                    {category.url ? (
-                                      <img
-                                        src={category.url}
-                                        alt={category.name}
-                                        className="w-6 h-6 rounded object-cover"
-                                      />
-                                    ) : (
-                                      <div className="w-6 h-6 rounded bg-orange-500/20 flex items-center justify-center">
-                                        <Gamepad2 className="h-3 w-3 text-orange-300" />
-                                      </div>
-                                    )}
-                                    <span className="truncate">{category.name}</span>
-                                  </Link>
-                                ))}
-                              </div>
-                            </div>
-                          </motion.div>
-                        )}
-                      </AnimatePresence>
-                    </div>
-                  );
-                }
-
-                // Diğer linkler normal
-                return (
+              {navLinks.map(({ href, label, icon: Icon }) => (
                 <Link
                   key={href}
                   to={href}
-                    className={`relative flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium transition-colors ${
+                  className={`relative flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium transition-colors ${
                     isActive(href)
-                        ? 'text-white bg-orange-500/20'
-                        : 'text-gray-300 hover:text-orange-300 hover:bg-orange-500/10'
+                      ? 'text-white bg-orange-500/20'
+                      : 'text-gray-300 hover:text-orange-300 hover:bg-orange-500/10'
                   }`}
                 >
-                    <Icon className="h-3.5 w-3.5" />
+                  <Icon className="h-3.5 w-3.5" />
                   <span>{label}</span>
                   {isActive(href) && (
                     <motion.div
-                        layoutId={`activeIndicator-${href}`}
-                        className="absolute bottom-0 left-0 right-0 h-0.5 bg-orange-400 rounded-full"
+                      layoutId={`activeIndicator-${href}`}
+                      className="absolute bottom-0 left-0 right-0 h-0.5 bg-orange-400 rounded-full"
                       transition={{ type: 'spring', stiffness: 300, damping: 30 }}
                     />
                   )}
                 </Link>
-                );
-              })}
+              ))}
 
               {isAuthenticated && (
                 <Link
@@ -509,95 +397,21 @@ const Header = ({ onOpenSearch, hideHeader = false }: HeaderProps) => {
 
                   {/* Navigation Links */}
                   <div className="space-y-1 mb-3">
-                    {navLinks.map(({ href, label, icon: Icon }) => {
-                      // Oyunlar için dropdown
-                      if (href === '/oyunlar') {
-                        return (
-                          <div key={href}>
-                            <button
-                              onClick={() => setIsMobileGamesOpen(!isMobileGamesOpen)}
-                              className={`w-full flex items-center justify-between gap-2.5 px-3 py-2.5 rounded-lg text-xs font-medium transition-colors ${
-                                isActive(href)
-                                  ? 'text-orange-300 bg-orange-500/20'
-                                  : 'text-gray-300 hover:text-orange-300 hover:bg-orange-500/10'
-                              }`}
-                            >
-                              <div className="flex items-center gap-2.5">
-                                <Icon className="h-4 w-4" />
-                                <span>{label}</span>
-                              </div>
-                              <ChevronDown className={`h-3.5 w-3.5 transition-transform ${isMobileGamesOpen ? 'rotate-180' : ''}`} />
-                            </button>
-                            <AnimatePresence>
-                              {isMobileGamesOpen && categories.length > 0 && (
-                                <motion.div
-                                  initial={{ height: 0, opacity: 0 }}
-                                  animate={{ height: 'auto', opacity: 1 }}
-                                  exit={{ height: 0, opacity: 0 }}
-                                  transition={{ duration: 0.2 }}
-                                  className="overflow-hidden"
-                                >
-                                  <div className="pl-6 pr-3 py-2 space-y-1">
-                                    <Link
-                                      to="/oyunlar"
-                                      onClick={() => {
-                                        setIsMenuOpen(false);
-                                        setIsMobileGamesOpen(false);
-                                      }}
-                                      className="flex items-center gap-2.5 px-3 py-2 rounded-lg text-xs font-semibold text-orange-300 hover:bg-orange-500/10 transition-colors"
-                                    >
-                                      <Zap className="h-3.5 w-3.5" />
-                                      <span>Tüm Kategoriler</span>
-                                    </Link>
-                                    {categories.map((category) => (
-                                      <Link
-                                        key={category.id}
-                                        to={`/oyunlar/${category.slug}`}
-                                        onClick={() => {
-                                          setIsMenuOpen(false);
-                                          setIsMobileGamesOpen(false);
-                                        }}
-                                        className="flex items-center gap-2.5 px-3 py-2 rounded-lg text-xs text-gray-300 hover:text-orange-300 hover:bg-orange-500/10 transition-colors"
-                                      >
-                                        {category.url ? (
-                                          <img
-                                            src={category.url}
-                                            alt={category.name}
-                                            className="w-5 h-5 rounded object-cover"
-                                          />
-                                        ) : (
-                                          <div className="w-5 h-5 rounded bg-orange-500/20 flex items-center justify-center">
-                                            <Gamepad2 className="h-2.5 w-2.5 text-orange-300" />
-                                          </div>
-                                        )}
-                                        <span className="truncate">{category.name}</span>
-                                      </Link>
-                                    ))}
-                                  </div>
-                                </motion.div>
-                              )}
-                            </AnimatePresence>
-                          </div>
-                        );
-                      }
-
-                      // Diğer linkler normal
-                      return (
+                    {navLinks.map(({ href, label, icon: Icon }) => (
                       <Link
                         key={href}
                         to={href}
                         onClick={() => setIsMenuOpen(false)}
-                          className={`flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-xs font-medium transition-colors ${
+                        className={`flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-xs font-medium transition-colors ${
                           isActive(href)
-                              ? 'text-orange-300 bg-orange-500/20'
-                              : 'text-gray-300 hover:text-orange-300 hover:bg-orange-500/10'
+                            ? 'text-orange-300 bg-orange-500/20'
+                            : 'text-gray-300 hover:text-orange-300 hover:bg-orange-500/10'
                         }`}
                       >
-                          <Icon className="h-4 w-4" />
+                        <Icon className="h-4 w-4" />
                         <span>{label}</span>
                       </Link>
-                      );
-                    })}
+                    ))}
 
                     {isAuthenticated && (
                       <Link
