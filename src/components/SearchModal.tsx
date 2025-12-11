@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef, useMemo, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Search, X, Gamepad2, ShoppingCart, Keyboard, Loader2, ArrowRight, Tag } from 'lucide-react';
+import { Search, X, Gamepad2, ShoppingCart, Loader2, ArrowRight, Tag } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { getCategories, getCategoryProducts } from '../services/api';
 
@@ -66,14 +66,6 @@ const SearchModal = ({ isOpen, onClose, homepageItems }: SearchModalProps) => {
   const searchInputRef = useRef<HTMLInputElement>(null);
   const listRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    if (!isOpen) return;
-    const original = document.body.style.overflow;
-    document.body.style.overflow = 'hidden';
-    return () => {
-      document.body.style.overflow = original;
-    };
-  }, [isOpen]);
 
   useEffect(() => {
     if (!isOpen) return;
@@ -210,47 +202,105 @@ const SearchModal = ({ isOpen, onClose, homepageItems }: SearchModalProps) => {
     return () => window.removeEventListener('keydown', onKey);
   }, [isOpen, searchResults, activeIndex]);
 
+  // Arama butonunun pozisyonunu bul
+  const [position, setPosition] = useState({ top: 0, left: 0, width: 0 });
+  const dropdownRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!isOpen) return;
+    
+    const updatePosition = () => {
+      // Desktop için
+      const desktopButton = document.getElementById('search-button-container');
+      // Mobile için
+      const mobileButton = document.getElementById('search-button-container-mobile');
+      
+      const button = desktopButton || mobileButton;
+      if (button) {
+        const rect = button.getBoundingClientRect();
+        const isMobile = window.innerWidth < 768;
+        const viewportWidth = window.innerWidth;
+        const padding = 16;
+        
+        let left = isMobile ? padding : rect.left;
+        let width = isMobile ? viewportWidth - (padding * 2) : Math.max(rect.width, 500);
+        
+        // Sağ taraftan taşmaması için kontrol
+        if (left + width > viewportWidth - padding) {
+          left = viewportWidth - width - padding;
+          // Eğer hala taşıyorsa, genişliği ayarla
+          if (left < padding) {
+            left = padding;
+            width = viewportWidth - (padding * 2);
+          }
+        }
+        
+        setPosition({
+          top: rect.bottom + 8,
+          left: left,
+          width: width,
+        });
+      }
+    };
+
+    updatePosition();
+    const interval = setInterval(updatePosition, 100);
+    window.addEventListener('resize', updatePosition);
+    window.addEventListener('scroll', updatePosition, true);
+    
+    return () => {
+      clearInterval(interval);
+      window.removeEventListener('resize', updatePosition);
+      window.removeEventListener('scroll', updatePosition, true);
+    };
+  }, [isOpen]);
+
+  // Dış tıklamada kapat
+  useEffect(() => {
+    if (!isOpen) return;
+    const handleClickOutside = (e: MouseEvent) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(e.target as Node)) {
+        const button = document.getElementById('search-button-container') || 
+                      document.getElementById('search-button-container-mobile');
+        if (button && !button.contains(e.target as Node)) {
+          handleClose();
+        }
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, [isOpen]);
+
   return (
     <AnimatePresence>
       {isOpen && (
         <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
+          ref={dropdownRef}
+          initial={{ opacity: 0, y: -10 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: -10 }}
           transition={{ duration: 0.2 }}
-          className="fixed inset-0 z-[60] flex items-start justify-center pt-[10vh] px-4"
-          onClick={handleClose}
+          className="fixed z-[60]"
+          style={{
+            top: `${position.top}px`,
+            left: `${position.left}px`,
+            width: `${position.width}px`,
+            maxWidth: 'calc(100vw - 32px)',
+          }}
         >
-          {/* Backdrop */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="absolute inset-0 bg-black/80 backdrop-blur-md"
-          />
-
-          {/* Command Palette Style Modal */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.96, y: -20 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.96, y: -20 }}
-            transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
-            onClick={(e) => e.stopPropagation()}
-            className="relative w-full max-w-2xl z-10"
-          >
             {/* Main Container */}
             <div
-              className="rounded-2xl overflow-hidden border shadow-2xl"
+              className="rounded-xl overflow-hidden border shadow-2xl"
               style={{
-                background: 'linear-gradient(135deg, rgba(0, 0, 0, 0.95), rgba(15, 15, 25, 0.95))',
-                border: '1px solid rgba(249, 115, 22, 0.3)',
-                boxShadow: '0 25px 50px -12px rgba(249, 115, 22, 0.3), 0 0 0 1px rgba(249, 115, 22, 0.1)',
-                backdropFilter: 'blur(24px)',
+                background: 'linear-gradient(135deg, rgba(31, 41, 55, 0.98) 0%, rgba(17, 24, 39, 0.98) 100%)',
+                border: '1px solid rgba(75, 85, 99, 0.3)',
+                boxShadow: '0 8px 32px rgba(0, 0, 0, 0.4)',
+                backdropFilter: 'blur(10px)',
               }}
             >
               {/* Search Input Bar */}
-              <div className="relative px-6 py-5 border-b" style={{ borderColor: 'rgba(249, 115, 22, 0.15)' }}>
-                <div className="flex items-center gap-4">
+              <div className="relative px-4 sm:px-5 py-4 border-b" style={{ borderColor: 'rgba(75, 85, 99, 0.3)' }}>
+                <div className="flex items-center gap-3">
                   <div className="flex-shrink-0">
                     <div
                       className="w-10 h-10 rounded-xl flex items-center justify-center"
@@ -263,14 +313,14 @@ const SearchModal = ({ isOpen, onClose, homepageItems }: SearchModalProps) => {
                     </div>
                   </div>
                   
-                  <div className="flex-1 relative">
+                  <div className="flex-1 relative min-w-0">
                     <input
                       ref={searchInputRef}
                       type="text"
                       value={searchQuery}
                       onChange={handleSearchInputChange}
                       placeholder="Oyun ara... (örn: Fortnite, Valorant)"
-                      className="w-full bg-transparent text-white placeholder-gray-500 text-lg font-medium focus:outline-none"
+                      className="w-full bg-transparent text-white placeholder-gray-400 text-lg font-semibold focus:outline-none"
                       style={{ caretColor: 'rgba(249, 115, 22, 1)' }}
                       aria-autocomplete="list"
                       aria-controls="search-results"
@@ -278,47 +328,24 @@ const SearchModal = ({ isOpen, onClose, homepageItems }: SearchModalProps) => {
                     />
                     {isSearching && (
                       <div className="absolute right-0 top-1/2 -translate-y-1/2">
-                        <Loader2 className="h-4 w-4 animate-spin text-orange-400" />
+                        <Loader2 className="h-5 w-5 animate-spin text-orange-400" />
                       </div>
                     )}
                   </div>
 
-                  {/* Keyboard Hints */}
-                  <div className="hidden sm:flex items-center gap-1.5 flex-shrink-0">
-                    <div
-                      className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-[10px] font-medium"
-                      style={{
-                        background: 'rgba(249, 115, 22, 0.1)',
-                        border: '1px solid rgba(249, 115, 22, 0.2)',
-                        color: 'rgba(249, 115, 22, 0.9)',
-                      }}
-                    >
-                      <Keyboard className="h-3 w-3" />
-                      <span>↑↓</span>
-                    </div>
-                    <div
-                      className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-[10px] font-medium"
-                      style={{
-                        background: 'rgba(249, 115, 22, 0.1)',
-                        border: '1px solid rgba(249, 115, 22, 0.2)',
-                        color: 'rgba(249, 115, 22, 0.9)',
-                      }}
-                    >
-                      <span>Enter</span>
-                    </div>
-                    <motion.button
-                      onClick={handleClose}
-                      whileHover={{ scale: 1.05 }}
-                      whileTap={{ scale: 0.95 }}
-                      className="w-8 h-8 rounded-lg flex items-center justify-center"
-                      style={{
-                        background: 'rgba(75, 85, 99, 0.2)',
-                        border: '1px solid rgba(75, 85, 99, 0.3)',
-                      }}
-                    >
-                      <X className="h-4 w-4 text-gray-400" />
-                    </motion.button>
-                  </div>
+                  {/* Close Button */}
+                  <motion.button
+                    onClick={handleClose}
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                    className="w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0"
+                    style={{
+                      background: 'rgba(75, 85, 99, 0.2)',
+                      border: '1px solid rgba(75, 85, 99, 0.3)',
+                    }}
+                  >
+                    <X className="h-4 w-4 text-gray-400" />
+                  </motion.button>
                 </div>
                 {error && (
                   <p className="mt-3 text-xs text-orange-300/80 px-2">{error}</p>
@@ -329,9 +356,9 @@ const SearchModal = ({ isOpen, onClose, homepageItems }: SearchModalProps) => {
               <div
                 ref={listRef}
                 id="search-results"
-                className="max-h-[60vh] overflow-y-auto gaming-scrollbar"
+                className="max-h-[70vh] overflow-y-auto gaming-scrollbar"
                 style={{
-                  background: 'rgba(0, 0, 0, 0.3)',
+                  background: 'rgba(0, 0, 0, 0.2)',
                 }}
               >
                 {isLoadingItems ? (
@@ -532,52 +559,13 @@ const SearchModal = ({ isOpen, onClose, homepageItems }: SearchModalProps) => {
                       transition={{ delay: 0.3 }}
                       className="text-sm text-gray-400 max-w-md"
                     >
-                      Oyun adı veya kategori yazarak arama yapabilirsiniz. Klavye kısayollarını kullanarak hızlıca gezinin.
+                      Oyun adı veya kategori yazarak arama yapabilirsiniz.
                     </motion.p>
-                    <motion.div
-                      initial={{ opacity: 0, y: 10 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: 0.4 }}
-                      className="flex items-center gap-3 mt-6"
-                    >
-                      <div
-                        className="flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs"
-                        style={{
-                          background: 'rgba(249, 115, 22, 0.1)',
-                          border: '1px solid rgba(249, 115, 22, 0.2)',
-                          color: 'rgba(249, 115, 22, 0.9)',
-                        }}
-                      >
-                        <Keyboard className="h-3.5 w-3.5" />
-                        <span>↑↓ Gezin</span>
-                      </div>
-                      <div
-                        className="flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs"
-                        style={{
-                          background: 'rgba(249, 115, 22, 0.1)',
-                          border: '1px solid rgba(249, 115, 22, 0.2)',
-                          color: 'rgba(249, 115, 22, 0.9)',
-                        }}
-                      >
-                        <span>Enter Seç</span>
-                      </div>
-                      <div
-                        className="flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs"
-                        style={{
-                          background: 'rgba(249, 115, 22, 0.1)',
-                          border: '1px solid rgba(249, 115, 22, 0.2)',
-                          color: 'rgba(249, 115, 22, 0.9)',
-                        }}
-                      >
-                        <span>Esc Kapat</span>
-                      </div>
-                    </motion.div>
                   </div>
                 )}
               </div>
             </div>
           </motion.div>
-        </motion.div>
       )}
     </AnimatePresence>
   );

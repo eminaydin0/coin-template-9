@@ -431,19 +431,22 @@ const CartPage = () => {
                               </div>
                             </div>
 
-                            <button
+                            <motion.button
                               onClick={handleClearCart}
-                              className="inline-flex items-center gap-2 rounded-xl px-4 py-2.5 transition-all duration-300 hover:scale-105"
+                              className="inline-flex items-center gap-2 rounded-xl px-4 py-2.5 transition-all duration-300"
                               style={{
-                                background: 'rgba(239, 68, 68, 0.15)',
-                                border: '1px solid rgba(239, 68, 68, 0.3)',
+                                background: 'linear-gradient(135deg, rgba(239, 68, 68, 0.2) 0%, rgba(220, 38, 38, 0.15) 100%)',
+                                border: '1px solid rgba(239, 68, 68, 0.4)',
+                                boxShadow: '0 4px 12px rgba(239, 68, 68, 0.2)',
                               }}
+                              whileHover={{ scale: 1.05, boxShadow: '0 6px 16px rgba(239, 68, 68, 0.3)' }}
+                              whileTap={{ scale: 0.98 }}
                             >
                               <Trash2 className="h-4 w-4 text-red-400" />
                               <span className="text-red-400 font-bold text-sm">
                                 TÜMÜNÜ SİL
                               </span>
-                            </button>
+                            </motion.button>
                           </div>
                         </div>
                       </div>

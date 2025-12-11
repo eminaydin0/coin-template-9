@@ -5,7 +5,7 @@ const Footer = () => {
   const { websiteData, getInfoValue } = useWebsite();
 
   return (
-    <footer className="relative py-8 mt-12">
+    <footer className="relative py-8 mt-0">
       <div className="px-4 sm:px-6 lg:px-8">
         <div className="w-full">
           <div 

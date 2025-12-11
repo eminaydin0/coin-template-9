@@ -93,12 +93,12 @@ const ConfirmModal = ({
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0.95, y: 20 }}
           transition={{ type: 'spring', damping: 25, stiffness: 300 }}
-          className="relative w-full max-w-md rounded-xl border overflow-hidden"
+          className="relative w-full max-w-md rounded-2xl border overflow-hidden"
           style={{
-            background: 'rgba(0, 0, 0, 0.85)',
-            border: '1px solid rgba(249, 115, 22, 0.3)',
-            boxShadow: '0 8px 32px rgba(249, 115, 22, 0.2), 0 4px 16px rgba(0,0,0,0.5)',
-            backdropFilter: 'blur(16px)',
+            background: 'linear-gradient(135deg, rgba(31, 41, 55, 0.8) 0%, rgba(17, 24, 39, 0.9) 100%)',
+            border: '1px solid rgba(75, 85, 99, 0.3)',
+            boxShadow: '0 8px 32px rgba(0, 0, 0, 0.4)',
+            backdropFilter: 'blur(10px)',
           }}
         >
           {/* Close Button */}
@@ -106,31 +106,33 @@ const ConfirmModal = ({
             whileHover={reduceMotion ? undefined : { scale: 1.1 }}
             whileTap={reduceMotion ? undefined : { scale: 0.9 }}
             onClick={onClose}
-            className="absolute right-3 top-3 z-10 rounded-lg p-1.5 text-gray-400 hover:text-white transition-colors"
+            className="absolute right-4 top-4 z-10 rounded-xl p-2 text-gray-400 hover:text-white transition-colors"
             style={{
               background: 'rgba(75, 85, 99, 0.3)',
+              border: '1px solid rgba(75, 85, 99, 0.4)',
             }}
             aria-label="Kapat"
           >
-            <X className="h-4 w-4" />
+            <X className="h-5 w-5" />
           </motion.button>
 
           {/* Header with Icon */}
           <div 
-            className="p-6 border-b text-center"
+            className="p-6 border-b text-center relative overflow-hidden"
             style={{
-              background: 'rgba(239, 68, 68, 0.1)',
-              borderColor: 'rgba(239, 68, 68, 0.2)',
+              background: 'linear-gradient(135deg, rgba(239, 68, 68, 0.15) 0%, rgba(220, 38, 38, 0.1) 100%)',
+              borderColor: 'rgba(75, 85, 99, 0.3)',
             }}
           >
             <motion.div
               initial={{ scale: 0, rotate: -180 }}
               animate={{ scale: 1, rotate: 0 }}
               transition={{ type: 'spring', damping: 15, stiffness: 300 }}
-              className="inline-flex items-center justify-center w-16 h-16 rounded-full mb-4"
+              className="inline-flex items-center justify-center w-16 h-16 rounded-2xl mb-4"
               style={{
-                background: 'rgba(239, 68, 68, 0.2)',
+                background: 'linear-gradient(135deg, rgba(239, 68, 68, 0.3) 0%, rgba(220, 38, 38, 0.2) 100%)',
                 border: '1px solid rgba(239, 68, 68, 0.4)',
+                boxShadow: '0 4px 16px rgba(239, 68, 68, 0.2)',
               }}
             >
               <AlertTriangle className="h-8 w-8 text-red-400" />
@@ -144,9 +146,9 @@ const ConfirmModal = ({
           </div>
 
           {/* Warning Badge */}
-          <div className="p-4 text-center">
+          <div className="p-5 text-center">
             <div 
-              className="inline-flex items-center gap-2 px-4 py-2 rounded-lg"
+              className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl"
               style={{
                 background: 'rgba(239, 68, 68, 0.15)',
                 border: '1px solid rgba(239, 68, 68, 0.3)',
@@ -165,7 +167,7 @@ const ConfirmModal = ({
               whileHover={reduceMotion ? undefined : { scale: 1.02 }}
               whileTap={reduceMotion ? undefined : { scale: 0.98 }}
               onClick={onClose}
-              className="flex-1 px-4 py-3 rounded-lg text-sm font-semibold text-white transition-all"
+              className="flex-1 px-4 py-3 rounded-xl text-sm font-semibold text-white transition-all"
               style={{
                 background: 'rgba(75, 85, 99, 0.3)',
                 border: '1px solid rgba(75, 85, 99, 0.4)',
@@ -181,10 +183,15 @@ const ConfirmModal = ({
               whileTap={reduceMotion ? undefined : { scale: 0.98 }}
               onClick={doConfirm}
               disabled={confirming}
-              className="flex-1 px-4 py-3 rounded-lg text-sm font-bold text-white transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+              className="flex-1 px-4 py-3 rounded-xl text-sm font-bold text-white transition-all disabled:opacity-50 disabled:cursor-not-allowed"
               style={{
-                background: 'rgba(239, 68, 68, 0.3)',
-                border: '1px solid rgba(239, 68, 68, 0.5)',
+                background: confirming 
+                  ? 'rgba(75, 85, 99, 0.3)'
+                  : 'linear-gradient(135deg, rgba(239, 68, 68, 0.3) 0%, rgba(220, 38, 38, 0.25) 100%)',
+                border: confirming
+                  ? '1px solid rgba(75, 85, 99, 0.4)'
+                  : '1px solid rgba(239, 68, 68, 0.5)',
+                boxShadow: confirming ? 'none' : '0 4px 16px rgba(239, 68, 68, 0.2)',
               }}
             >
               {confirming ? (

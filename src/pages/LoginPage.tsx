@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { Eye, EyeOff, Mail, Lock, Users, LogIn, Home, ChevronRight } from 'lucide-react';
+import { Eye, EyeOff, Mail, Lock, Users, LogIn } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 import SEOHead from '../components/SEOHead';
 import CommonBackground from '../components/CommonBackground';
@@ -52,278 +52,238 @@ const LoginPage = () => {
         <CommonBackground />
 
         <div className="w-full relative z-10">
-          {/* Header Section - Login Özel Tasarım */}
-          <div className="w-full mb-6 px-4 sm:px-6 lg:px-8">
-            <div className="max-w-2xl mx-auto">
-              {/* Breadcrumb */}
-              <div className="flex items-center justify-center gap-1.5 text-xs mb-4">
-                <Link 
-                  to="/" 
-                  className="flex items-center gap-1 text-gray-400 hover:text-orange-300 transition-colors"
-                >
-                  <Home className="h-3.5 w-3.5" />
-                  <span>Ana Sayfa</span>
-                </Link>
-                <ChevronRight className="h-3.5 w-3.5 text-gray-600" />
-                <span className="text-gray-300 font-medium">Giriş Yap</span>
-              </div>
-
-              {/* Title Section - Kompakt */}
-              <motion.div
-                initial={{ opacity: 0, y: -10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.4 }}
-                className="text-center"
-              >
-                {/* Icon Container - Kompakt */}
-                <motion.div
-                  initial={{ scale: 0.9, opacity: 0 }}
-                  animate={{ scale: 1, opacity: 1 }}
-                  transition={{ duration: 0.4, delay: 0.1 }}
-                  className="inline-flex items-center justify-center mb-3"
-                >
-                  <div 
-                    className="w-12 h-12 rounded-xl flex items-center justify-center relative"
+          {/* Login Form Section */}
+          <section className="relative py-8">
+            <div className="px-4 sm:px-6 lg:px-8">
+              <div className="w-full">
+                <div className="max-w-lg mx-auto">
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.35 }}
+                    className="relative rounded-2xl border overflow-hidden"
                     style={{
-                      background: 'linear-gradient(135deg, rgba(249, 115, 22, 0.2), rgba(249, 115, 22, 0.12))',
-                      border: '1.5px solid rgba(249, 115, 22, 0.35)',
-                      boxShadow: '0 4px 16px rgba(249, 115, 22, 0.2)',
+                      background: 'linear-gradient(135deg, rgba(31, 41, 55, 0.8) 0%, rgba(17, 24, 39, 0.9) 100%)',
+                      border: '1px solid rgba(75, 85, 99, 0.3)',
+                      backdropFilter: 'blur(10px)',
+                      boxShadow: '0 8px 32px rgba(0, 0, 0, 0.4)',
                     }}
                   >
-                    <LogIn className="h-6 w-6 text-orange-300" />
-                  </div>
-                </motion.div>
-
-                {/* Title */}
-                <motion.h1
-                  initial={{ opacity: 0, y: 5 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.4, delay: 0.15 }}
-                  className="text-2xl sm:text-3xl font-bold text-white mb-2"
-                >
-                  <span className="bg-gradient-to-r from-orange-300 to-orange-400 bg-clip-text text-transparent">
-                    Hesabına Giriş Yap
-                  </span>
-                </motion.h1>
-
-                {/* Subtitle */}
-                <motion.p
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ duration: 0.4, delay: 0.2 }}
-                  className="text-gray-400 text-xs sm:text-sm"
-                >
-                  Oyun dünyasına hoş geldin!
-                </motion.p>
-              </motion.div>
-            </div>
-          </div>
-
-          <div className="w-full px-4 sm:px-6 lg:px-8 relative z-10">
-            <div className="max-w-lg mx-auto space-y-6">
-
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.35 }}
-              className="relative rounded-2xl border overflow-hidden"
-              style={{
-                background: 'rgba(0, 0, 0, 0.78)',
-                border: '1px solid rgba(75, 85, 99, 0.3)',
-                boxShadow: '0 10px 30px rgba(0,0,0,0.45), 0 4px 16px rgba(0,0,0,0.25)',
-                backdropFilter: 'blur(16px)',
-              }}
-            >
-              <div
-                className="absolute top-0 left-0 right-0 h-1"
-                style={{
-                  background: 'linear-gradient(90deg, rgba(249, 115, 22, 0.7), rgba(249, 115, 22, 0.2), transparent)',
-                }}
-              />
-
-              <div className="p-6 sm:p-7">
-                <form onSubmit={handleSubmit} className="space-y-5" noValidate>
-                  {error && (
-                    <div
-                      className="px-4 py-3 rounded-xl border backdrop-blur-sm"
+                    {/* Title Section */}
+                    <div 
+                      className="p-6 border-b relative overflow-hidden"
                       style={{
-                        background: 'rgba(239, 68, 68, 0.12)',
-                        border: '1px solid rgba(239, 68, 68, 0.3)',
-                        color: 'rgba(252, 165, 165, 0.95)',
+                        borderColor: 'rgba(75, 85, 99, 0.3)',
+                        background: 'linear-gradient(135deg, rgba(249, 115, 22, 0.1) 0%, rgba(234, 88, 12, 0.05) 100%)',
                       }}
                     >
-                      <div className="flex items-center gap-2">
-                        <div className="w-2 h-2 bg-red-400 rounded-full animate-pulse" />
-                        <span className="text-sm font-medium">{error}</span>
+                      <div className="flex items-center gap-4 relative z-10">
+                        <div 
+                          className="w-14 h-14 rounded-xl flex items-center justify-center flex-shrink-0"
+                          style={{
+                            background: 'linear-gradient(135deg, rgba(249, 115, 22, 0.3) 0%, rgba(234, 88, 12, 0.2) 100%)',
+                            border: '1px solid rgba(249, 115, 22, 0.4)',
+                            boxShadow: '0 4px 16px rgba(249, 115, 22, 0.2)',
+                          }}
+                        >
+                          <LogIn className="h-7 w-7 text-orange-300" />
+                        </div>
+                        <div>
+                          <h1 className="text-2xl font-black text-white mb-1">
+                            Giriş Yap
+                          </h1>
+                          <p className="text-gray-400 text-xs font-medium">
+                            Hesabınıza giriş yapın
+                          </p>
+                        </div>
                       </div>
                     </div>
-                  )}
 
-                  <div>
-                    <label htmlFor="email" className="block text-sm font-semibold text-gray-300 mb-2">
-                      E-posta Adresi
-                    </label>
-                    <div className="relative">
-                      <Mail className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-orange-300/70" />
-                      <input
-                        type="email"
-                        id="email"
-                        name="email"
-                        value={formData.email}
-                        onChange={handleChange}
-                        required
-                        aria-invalid={emailInvalid || undefined}
-                        aria-describedby={emailInvalid ? 'email-err' : undefined}
-                        className="w-full px-4 py-3 pl-11 rounded-xl text-white placeholder-gray-500 focus:outline-none transition-all duration-300 font-medium"
-                        style={{
-                          background: emailInvalid ? 'rgba(239, 68, 68, 0.08)' : 'rgba(0, 0, 0, 0.65)',
-                          border: emailInvalid
-                            ? '1.5px solid rgba(239, 68, 68, 0.5)'
-                            : '1.5px solid rgba(249, 115, 22, 0.25)',
-                          boxShadow: 'inset 0 2px 4px rgba(0,0,0,0.2)',
-                        }}
-                        onFocus={(e) => {
-                          if (!emailInvalid) {
-                            e.currentTarget.style.borderColor = 'rgba(249, 115, 22, 0.55)';
-                            e.currentTarget.style.boxShadow =
-                              '0 0 0 3px rgba(249, 115, 22, 0.15), inset 0 2px 4px rgba(0,0,0,0.2)';
-                            e.currentTarget.style.background = 'rgba(0, 0, 0, 0.72)';
-                          }
-                        }}
-                        onBlur={(e) => {
-                          handleBlur(e);
-                          if (!emailInvalid) {
-                            e.currentTarget.style.borderColor = 'rgba(249, 115, 22, 0.25)';
-                            e.currentTarget.style.boxShadow = 'inset 0 2px 4px rgba(0,0,0,0.2)';
-                            e.currentTarget.style.background = 'rgba(0, 0, 0, 0.65)';
-                          }
-                        }}
-                        placeholder="oyuncu@oyun.com"
-                      />
-                    </div>
-                    {emailInvalid && (
-                      <p id="email-err" className="mt-2 text-sm text-red-400">
-                        Lütfen geçerli bir e-posta girin.
-                      </p>
-                    )}
+                    <div className="p-6 sm:p-8">
+                      <form onSubmit={handleSubmit} className="space-y-6" noValidate>
+                      {error && (
+                        <div
+                          className="px-4 py-3 rounded-xl border mb-5"
+                          style={{
+                            background: 'rgba(239, 68, 68, 0.15)',
+                            border: '1px solid rgba(239, 68, 68, 0.3)',
+                          }}
+                        >
+                          <div className="flex items-center gap-2">
+                            <div className="w-2 h-2 bg-red-400 rounded-full animate-pulse" />
+                            <span className="text-sm font-medium text-red-300">{error}</span>
+                          </div>
+                        </div>
+                      )}
+
+                      <div className="space-y-2">
+                        <label htmlFor="email" className="block text-sm font-bold text-orange-300 mb-2">
+                          E-posta Adresi
+                        </label>
+                        <div className="relative">
+                          <div
+                            className="rounded-xl p-4 border relative overflow-hidden transition-all"
+                            style={{
+                              background: emailInvalid 
+                                ? 'linear-gradient(135deg, rgba(239, 68, 68, 0.15), rgba(220, 38, 38, 0.1))'
+                                : 'linear-gradient(135deg, rgba(249, 115, 22, 0.15), rgba(251, 146, 60, 0.1))',
+                              border: emailInvalid
+                                ? '1px solid rgba(239, 68, 68, 0.4)'
+                                : '1px solid rgba(249, 115, 22, 0.3)',
+                              boxShadow: emailInvalid 
+                                ? '0 4px 12px rgba(239, 68, 68, 0.2)'
+                                : '0 4px 12px rgba(249, 115, 22, 0.15)',
+                            }}
+                          >
+                            <motion.div
+                              className="absolute inset-0 bg-gradient-to-br from-orange-500/10 to-transparent"
+                              animate={{
+                                opacity: [0.2, 0.4, 0.2],
+                              }}
+                              transition={{ duration: 2, repeat: Infinity }}
+                            />
+                            <div className="relative z-10 flex items-center gap-3">
+                              <Mail className="h-5 w-5 text-orange-300 flex-shrink-0" />
+                              <input
+                                type="email"
+                                id="email"
+                                name="email"
+                                value={formData.email}
+                                onChange={handleChange}
+                                onBlur={handleBlur}
+                                required
+                                aria-invalid={emailInvalid || undefined}
+                                aria-describedby={emailInvalid ? 'email-err' : undefined}
+                                className="flex-1 bg-transparent text-white placeholder-gray-400 focus:outline-none font-semibold text-base"
+                                placeholder="ornek@email.com"
+                              />
+                            </div>
+                          </div>
+                        </div>
+                        {emailInvalid && (
+                          <p id="email-err" className="mt-1 text-xs text-red-400 font-medium">
+                            Lütfen geçerli bir e-posta girin.
+                          </p>
+                        )}
+                      </div>
+
+                      <div className="space-y-2">
+                        <label htmlFor="password" className="block text-sm font-bold text-orange-300 mb-2">
+                          Şifre
+                        </label>
+                        <div className="relative">
+                          <div
+                            className="rounded-xl p-4 border relative overflow-hidden transition-all"
+                            style={{
+                              background: passwordInvalid 
+                                ? 'linear-gradient(135deg, rgba(239, 68, 68, 0.15), rgba(220, 38, 38, 0.1))'
+                                : 'linear-gradient(135deg, rgba(249, 115, 22, 0.15), rgba(251, 146, 60, 0.1))',
+                              border: passwordInvalid
+                                ? '1px solid rgba(239, 68, 68, 0.4)'
+                                : '1px solid rgba(249, 115, 22, 0.3)',
+                              boxShadow: passwordInvalid 
+                                ? '0 4px 12px rgba(239, 68, 68, 0.2)'
+                                : '0 4px 12px rgba(249, 115, 22, 0.15)',
+                            }}
+                          >
+                            <motion.div
+                              className="absolute inset-0 bg-gradient-to-br from-orange-500/10 to-transparent"
+                              animate={{
+                                opacity: [0.2, 0.4, 0.2],
+                              }}
+                              transition={{ duration: 2, repeat: Infinity, delay: 0.3 }}
+                            />
+                            <div className="relative z-10 flex items-center gap-3">
+                              <Lock className="h-5 w-5 text-orange-300 flex-shrink-0" />
+                              <input
+                                type={showPassword ? 'text' : 'password'}
+                                id="password"
+                                name="password"
+                                value={formData.password}
+                                onChange={handleChange}
+                                onBlur={handleBlur}
+                                required
+                                aria-invalid={passwordInvalid || undefined}
+                                aria-describedby={passwordInvalid ? 'pass-err' : undefined}
+                                className="flex-1 bg-transparent text-white placeholder-gray-400 focus:outline-none font-semibold text-base"
+                                placeholder="••••••••"
+                              />
+                              <button
+                                type="button"
+                                onClick={() => setShowPassword((s) => !s)}
+                                className="text-gray-400 hover:text-orange-300 transition-colors duration-200 p-2 rounded-lg hover:bg-orange-300/10 flex-shrink-0"
+                                aria-label={showPassword ? 'Şifreyi gizle' : 'Şifreyi göster'}
+                              >
+                                {showPassword ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+                        {passwordInvalid && (
+                          <p id="pass-err" className="mt-1 text-xs text-red-400 font-medium">
+                            Şifre en az 6 karakter olmalı.
+                          </p>
+                        )}
+                      </div>
+
+                      {/* Submit Button */}
+                      <div className="mt-8">
+                        <motion.button
+                          type="submit"
+                          disabled={loading}
+                          className="w-full font-black text-black py-4 px-6 rounded-xl transition-all duration-300 flex items-center justify-center gap-3 text-base disabled:opacity-50 disabled:cursor-not-allowed relative overflow-hidden"
+                          style={{
+                            background: loading
+                              ? 'rgba(75, 85, 99, 0.3)'
+                              : 'linear-gradient(135deg, rgb(251, 146, 60) 0%, rgb(249, 115, 22) 50%, rgb(251, 146, 60) 100%)',
+                            boxShadow: loading 
+                              ? 'none'
+                              : '0 4px 20px rgba(249, 115, 22, 0.4)',
+                          }}
+                          whileHover={{ scale: loading ? 1 : 1.02, boxShadow: loading ? 'none' : '0 6px 24px rgba(249, 115, 22, 0.5)' }}
+                          whileTap={{ scale: 0.98 }}
+                        >
+                          {loading ? (
+                            <>
+                              <div className="w-5 h-5 border-2 border-black border-t-transparent rounded-full animate-spin"></div>
+                              <span>Giriş Yapılıyor...</span>
+                            </>
+                          ) : (
+                            <>
+                              <LogIn className="h-5 w-5" />
+                              <span>GİRİŞ YAP</span>
+                            </>
+                          )}
+                        </motion.button>
+                      </div>
+
+                      <div className="text-center pt-6 border-t" style={{ borderColor: 'rgba(75, 85, 99, 0.3)' }}>
+                        <p className="text-gray-400 text-sm mb-4">Henüz hesabın yok mu?</p>
+                        <Link
+                          to="/kayit-ol"
+                          className="inline-flex items-center gap-2 px-5 py-2.5 font-semibold rounded-xl border transition-all duration-200"
+                          style={{
+                            border: '1px solid rgba(249, 115, 22, 0.4)',
+                            color: 'rgba(249, 115, 22, 0.95)',
+                          }}
+                          onMouseEnter={(e) => {
+                            e.currentTarget.style.background = 'rgba(249, 115, 22, 0.1)';
+                          }}
+                          onMouseLeave={(e) => {
+                            e.currentTarget.style.background = 'transparent';
+                          }}
+                        >
+                          <Users className="h-4 w-4" />
+                          <span className="text-sm">HESAP OLUŞTUR</span>
+                        </Link>
+                      </div>
+                    </form>
                   </div>
-
-                  <div>
-                    <label htmlFor="password" className="block text-sm font-semibold text-gray-300 mb-2">
-                      Şifre
-                    </label>
-                    <div className="relative">
-                      <Lock className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-orange-300/70" />
-                      <input
-                        type={showPassword ? 'text' : 'password'}
-                        id="password"
-                        name="password"
-                        value={formData.password}
-                        onChange={handleChange}
-                        required
-                        aria-invalid={passwordInvalid || undefined}
-                        aria-describedby={passwordInvalid ? 'pass-err' : undefined}
-                        className="w-full px-4 py-3 pl-11 pr-11 rounded-xl text-white placeholder-gray-500 focus:outline-none transition-all duration-300 font-medium"
-                        style={{
-                          background: passwordInvalid ? 'rgba(239, 68, 68, 0.08)' : 'rgba(0, 0, 0, 0.65)',
-                          border: passwordInvalid
-                            ? '1.5px solid rgba(239, 68, 68, 0.5)'
-                            : '1.5px solid rgba(249, 115, 22, 0.25)',
-                          boxShadow: 'inset 0 2px 4px rgba(0,0,0,0.2)',
-                        }}
-                        onFocus={(e) => {
-                          if (!passwordInvalid) {
-                            e.currentTarget.style.borderColor = 'rgba(249, 115, 22, 0.55)';
-                            e.currentTarget.style.boxShadow =
-                              '0 0 0 3px rgba(249, 115, 22, 0.15), inset 0 2px 4px rgba(0,0,0,0.2)';
-                            e.currentTarget.style.background = 'rgba(0, 0, 0, 0.72)';
-                          }
-                        }}
-                        onBlur={(e) => {
-                          handleBlur(e);
-                          if (!passwordInvalid) {
-                            e.currentTarget.style.borderColor = 'rgba(249, 115, 22, 0.25)';
-                            e.currentTarget.style.boxShadow = 'inset 0 2px 4px rgba(0,0,0,0.2)';
-                            e.currentTarget.style.background = 'rgba(0, 0, 0, 0.65)';
-                          }
-                        }}
-                        placeholder="••••••••"
-                      />
-                      <button
-                        type="button"
-                        onClick={() => setShowPassword((s) => !s)}
-                        className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-orange-300 transition-all duration-200 p-1.5 rounded-lg hover:bg-orange-300/10"
-                        aria-label={showPassword ? 'Şifreyi gizle' : 'Şifreyi göster'}
-                      >
-                        {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
-                      </button>
-                    </div>
-                    {passwordInvalid && (
-                      <p id="pass-err" className="mt-2 text-sm text-red-400">
-                        Şifre en az 6 karakter olmalı.
-                      </p>
-                    )}
-                  </div>
-
-                  <motion.button
-                    type="submit"
-                    disabled={loading}
-                    className="relative w-full font-bold text-black py-3.5 px-5 rounded-xl transition-all duration-300 flex items-center justify-center gap-2.5 disabled:opacity-50 disabled:cursor-not-allowed overflow-hidden mt-4 group/btn"
-                    style={{
-                      background: 'linear-gradient(135deg, rgba(249, 115, 22, 1), rgba(249, 115, 22, 0.9), rgba(249, 115, 22, 1))',
-                      boxShadow: '0 10px 28px rgba(249,115,22,0.45), inset 0 1px 0 rgba(255,255,255,0.35)',
-                    }}
-                    whileHover={{ scale: loading ? 1 : 1.02, y: loading ? 0 : -2 }}
-                    whileTap={{ scale: 0.98 }}
-                    onMouseEnter={(e) => {
-                      if (!loading) {
-                        e.currentTarget.style.boxShadow =
-                          '0 14px 36px rgba(249,115,22,0.55), inset 0 1px 0 rgba(255,255,255,0.4)';
-                      }
-                    }}
-                    onMouseLeave={(e) => {
-                      e.currentTarget.style.boxShadow =
-                        '0 10px 28px rgba(249,115,22,0.45), inset 0 1px 0 rgba(255,255,255,0.35)';
-                    }}
-                  >
-                    {loading ? (
-                      <>
-                        <div className="w-5 h-5 border-[3px] border-black border-t-transparent rounded-full animate-spin" />
-                        <span className="text-sm">Giriş Yapılıyor...</span>
-                      </>
-                    ) : (
-                      <>
-                        <LogIn className="h-5 w-5 relative z-10" />
-                        <span className="text-sm relative z-10">GİRİŞ YAP</span>
-                      </>
-                    )}
-                  </motion.button>
-
-                  <div className="text-center pt-6 border-t" style={{ borderColor: 'rgba(249, 115, 22, 0.15)' }}>
-                    <p className="text-gray-400 text-sm mb-3">Henüz hesabın yok mu?</p>
-                    <Link
-                      to="/kayit-ol"
-                      className="inline-flex items-center gap-2 px-5 py-2.5 font-semibold rounded-xl border transition-all duration-200"
-                      style={{
-                        border: '1px solid rgba(249, 115, 22, 0.45)',
-                        color: 'rgba(249, 115, 22, 0.95)',
-                      }}
-                      onMouseEnter={(e) => {
-                        e.currentTarget.style.background = 'rgba(249, 115, 22, 0.12)';
-                      }}
-                      onMouseLeave={(e) => {
-                        e.currentTarget.style.background = 'transparent';
-                      }}
-                    >
-                      <Users className="h-4 w-4" />
-                      <span className="text-sm">HESAP OLUŞTUR</span>
-                    </Link>
-                  </div>
-                </form>
+                </motion.div>
               </div>
-            </motion.div>
             </div>
           </div>
+          </section>
         </div>
       </div>
     </>

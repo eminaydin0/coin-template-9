@@ -181,14 +181,16 @@ const Header = ({ onOpenSearch, hideHeader = false }: HeaderProps) => {
             {/* Compact Desktop Actions */}
             <div className="hidden md:flex items-center gap-2">
               {/* Search Button */}
-              <button
-                onClick={onOpenSearch}
-                className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium text-gray-300 hover:text-orange-300 hover:bg-orange-500/10 transition-colors"
-                aria-label="Oyun ara"
-              >
-                <Search className="h-3.5 w-3.5" />
-                <span className="hidden lg:inline">Ara</span>
-              </button>
+              <div className="relative" id="search-button-container">
+                <button
+                  onClick={onOpenSearch}
+                  className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium text-gray-300 hover:text-orange-300 hover:bg-orange-500/10 transition-colors"
+                  aria-label="Oyun ara"
+                >
+                  <Search className="h-3.5 w-3.5" />
+                  <span className="hidden lg:inline">Ara</span>
+                </button>
+              </div>
 
               {isAuthenticated ? (
                 <>
@@ -297,13 +299,15 @@ const Header = ({ onOpenSearch, hideHeader = false }: HeaderProps) => {
 
             {/* Compact Mobile Actions */}
             <div className="md:hidden flex items-center gap-1.5">
-              <button
-                onClick={onOpenSearch}
-                className="p-1.5 rounded-lg text-gray-300 hover:text-orange-300 hover:bg-orange-500/10 transition-colors"
-                aria-label="Ara"
-              >
-                <Search className="h-4 w-4" />
-              </button>
+              <div className="relative" id="search-button-container-mobile">
+                <button
+                  onClick={onOpenSearch}
+                  className="p-1.5 rounded-lg text-gray-300 hover:text-orange-300 hover:bg-orange-500/10 transition-colors"
+                  aria-label="Ara"
+                >
+                  <Search className="h-4 w-4" />
+                </button>
+              </div>
 
               {isAuthenticated && (
                 <Link
