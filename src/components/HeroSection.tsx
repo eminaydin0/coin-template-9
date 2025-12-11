@@ -87,7 +87,7 @@ export default function HeroSection({
   return (
     <section 
       ref={heroRef}
-      className="relative h-full w-full flex overflow-hidden rounded-3xl"
+      className="relative h-full w-full flex flex-col lg:flex-row overflow-hidden rounded-3xl"
       style={{
         background: 'linear-gradient(135deg, rgba(31, 41, 55, 0.8) 0%, rgba(17, 24, 39, 0.9) 100%)',
         border: '1px solid rgba(75, 85, 99, 0.3)',
@@ -98,8 +98,8 @@ export default function HeroSection({
       {/* Subtle Background Glow */}
       <div className="absolute -top-20 left-1/2 -translate-x-1/2 w-96 h-96 bg-orange-500/5 rounded-full blur-3xl pointer-events-none" />
 
-      {/* Left Side - Photo (50%) */}
-      <div className="w-1/2 h-full relative overflow-hidden flex items-center justify-center">
+      {/* Photo Section - Top on mobile, Left on desktop */}
+      <div className="w-full lg:w-1/2 h-64 sm:h-80 md:h-96 lg:h-full relative overflow-hidden flex items-center justify-center p-4 sm:p-6 lg:p-0">
         <AnimatePresence mode="wait">
           <motion.div
             key={current.url}
@@ -126,7 +126,7 @@ export default function HeroSection({
       {/* Subtle Floating Elements - Asymmetric */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
         <motion.div
-          className="absolute text-orange-400/15"
+          className="absolute text-orange-400/15 hidden lg:block"
           style={{ left: '8%', top: '15%' }}
           animate={{ y: [0, -15, 0], opacity: [0.15, 0.25, 0.15] }}
           transition={{ duration: 5, repeat: Infinity, delay: 0 }}
@@ -134,7 +134,7 @@ export default function HeroSection({
           <Star className="h-8 w-8" />
         </motion.div>
         <motion.div
-          className="absolute text-orange-400/12"
+          className="absolute text-orange-400/12 hidden lg:block"
           style={{ right: '12%', top: '30%' }}
           animate={{ y: [0, -12, 0], opacity: [0.12, 0.2, 0.12] }}
           transition={{ duration: 6, repeat: Infinity, delay: 1.5 }}
@@ -142,7 +142,7 @@ export default function HeroSection({
           <Sparkles className="h-6 w-6" />
         </motion.div>
         <motion.div
-          className="absolute text-orange-400/10"
+          className="absolute text-orange-400/10 hidden lg:block"
           style={{ left: '15%', bottom: '20%' }}
           animate={{ y: [0, -10, 0], opacity: [0.1, 0.18, 0.1] }}
           transition={{ duration: 7, repeat: Infinity, delay: 3 }}
@@ -151,8 +151,8 @@ export default function HeroSection({
         </motion.div>
       </div>
 
-      {/* Right Side - Text (50%) */}
-      <div className="w-1/2 h-full flex items-center justify-center relative z-10 px-8 lg:px-16">
+      {/* Text Section - Bottom on mobile, Right on desktop */}
+      <div className="w-full lg:w-1/2 h-auto lg:h-full flex items-center justify-center relative z-10 px-4 sm:px-6 md:px-8 lg:px-16 py-6 sm:py-8 lg:py-0">
         <div className="text-center max-w-2xl w-full">
         <AnimatePresence mode="wait">
           <motion.div
@@ -164,7 +164,7 @@ export default function HeroSection({
           >
             {/* Main Heading - Balanced */}
             <motion.h1 
-              className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black text-white mb-6 leading-tight tracking-tight"
+              className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-black text-white mb-4 sm:mb-6 leading-tight tracking-tight"
               initial={{ opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.1, duration: 0.5 }}
@@ -176,7 +176,7 @@ export default function HeroSection({
 
             {/* Subtitle - Refined */}
             <motion.p 
-              className="text-base sm:text-lg md:text-xl font-medium text-gray-300 mb-10 leading-relaxed"
+              className="text-sm sm:text-base md:text-lg lg:text-xl font-medium text-gray-300 mb-6 sm:mb-8 lg:mb-10 leading-relaxed px-2"
               initial={{ opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2, duration: 0.5 }}
@@ -186,14 +186,14 @@ export default function HeroSection({
 
             {/* Action Buttons - Refined */}
             <motion.div 
-              className="flex justify-center gap-4 mt-8 flex-wrap"
+              className="flex justify-center gap-3 sm:gap-4 mt-6 sm:mt-8 flex-wrap"
               initial={{ opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.3, duration: 0.5 }}
             >
               <Link
                 to="/oyunlar"
-                className="group relative inline-flex items-center gap-2.5 px-6 py-3 rounded-xl font-bold text-white text-sm overflow-hidden transition-all duration-300"
+                className="group relative inline-flex items-center gap-2 sm:gap-2.5 px-4 sm:px-6 py-2.5 sm:py-3 rounded-xl font-bold text-white text-xs sm:text-sm overflow-hidden transition-all duration-300"
                 style={{
                   background: 'linear-gradient(135deg, rgba(249, 115, 22, 1), rgba(234, 88, 12, 1))',
                   boxShadow: '0 4px 16px rgba(249, 115, 22, 0.3)',
@@ -213,14 +213,14 @@ export default function HeroSection({
                   whileHover={{ x: '100%' }}
                   transition={{ duration: 0.5 }}
                 />
-                <Rocket className="h-4 w-4 relative z-10" />
+                <Rocket className="h-3.5 w-3.5 sm:h-4 sm:w-4 relative z-10" />
                 <span className="relative z-10">Keşfet</span>
-                <ArrowRight className="h-4 w-4 group-hover:translate-x-0.5 transition-transform relative z-10" />
+                <ArrowRight className="h-3.5 w-3.5 sm:h-4 sm:w-4 group-hover:translate-x-0.5 transition-transform relative z-10" />
               </Link>
 
               <Link
                 to="/rehber"
-                className="group inline-flex items-center gap-2.5 px-6 py-3 rounded-xl font-semibold text-white text-sm backdrop-blur-md transition-all duration-300"
+                className="group inline-flex items-center gap-2 sm:gap-2.5 px-4 sm:px-6 py-2.5 sm:py-3 rounded-xl font-semibold text-white text-xs sm:text-sm backdrop-blur-md transition-all duration-300"
                 style={{
                   background: 'rgba(249, 115, 22, 0.1)',
                   border: '1px solid rgba(249, 115, 22, 0.3)',
@@ -234,7 +234,7 @@ export default function HeroSection({
                   e.currentTarget.style.transform = 'translateY(0)';
                 }}
               >
-                <Eye className="h-4 w-4" />
+                <Eye className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
                 <span>Nasıl Çalışır</span>
               </Link>
             </motion.div>
@@ -249,7 +249,7 @@ export default function HeroSection({
           {/* Previous Button */}
           <motion.button
             onClick={goToPrev}
-            className="absolute left-4 top-1/2 -translate-y-1/2 z-20 w-12 h-12 rounded-xl flex items-center justify-center transition-all duration-300 group"
+            className="absolute left-2 sm:left-4 top-1/2 -translate-y-1/2 z-20 w-10 h-10 sm:w-12 sm:h-12 rounded-xl flex items-center justify-center transition-all duration-300 group"
             style={{
               background: 'linear-gradient(135deg, rgba(249, 115, 22, 0.25) 0%, rgba(234, 88, 12, 0.2) 100%)',
               border: '1px solid rgba(249, 115, 22, 0.4)',
@@ -260,13 +260,13 @@ export default function HeroSection({
             whileTap={{ scale: 0.95 }}
             aria-label="Önceki slide"
           >
-            <ChevronLeft className="w-6 h-6 text-orange-400 group-hover:text-orange-300 transition-colors" />
+            <ChevronLeft className="w-5 h-5 sm:w-6 sm:h-6 text-orange-400 group-hover:text-orange-300 transition-colors" />
           </motion.button>
 
           {/* Next Button */}
           <motion.button
             onClick={goToNext}
-            className="absolute right-4 top-1/2 -translate-y-1/2 z-20 w-12 h-12 rounded-xl flex items-center justify-center transition-all duration-300 group"
+            className="absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 z-20 w-10 h-10 sm:w-12 sm:h-12 rounded-xl flex items-center justify-center transition-all duration-300 group"
             style={{
               background: 'linear-gradient(135deg, rgba(249, 115, 22, 0.25) 0%, rgba(234, 88, 12, 0.2) 100%)',
               border: '1px solid rgba(249, 115, 22, 0.4)',
@@ -277,13 +277,13 @@ export default function HeroSection({
             whileTap={{ scale: 0.95 }}
             aria-label="Sonraki slide"
           >
-            <ChevronRight className="w-6 h-6 text-orange-400 group-hover:text-orange-300 transition-colors" />
+            <ChevronRight className="w-5 h-5 sm:w-6 sm:h-6 text-orange-400 group-hover:text-orange-300 transition-colors" />
           </motion.button>
 
           {/* Play/Pause Button */}
           <motion.button
             onClick={() => setIsPlaying(!isPlaying)}
-            className="absolute top-4 right-4 z-20 w-12 h-12 rounded-xl flex items-center justify-center transition-all duration-300 group"
+            className="absolute top-2 sm:top-4 right-2 sm:right-4 z-20 w-10 h-10 sm:w-12 sm:h-12 rounded-xl flex items-center justify-center transition-all duration-300 group"
             style={{
               background: 'linear-gradient(135deg, rgba(249, 115, 22, 0.25) 0%, rgba(234, 88, 12, 0.2) 100%)',
               border: '1px solid rgba(249, 115, 22, 0.4)',
@@ -295,9 +295,9 @@ export default function HeroSection({
             aria-label={isPlaying ? "Duraklat" : "Oynat"}
           >
             {isPlaying ? (
-              <Pause className="h-5 w-5 text-orange-400 group-hover:text-orange-300 transition-colors" />
+              <Pause className="h-4 w-4 sm:h-5 sm:w-5 text-orange-400 group-hover:text-orange-300 transition-colors" />
             ) : (
-              <Play className="h-5 w-5 text-orange-400 group-hover:text-orange-300 transition-colors ml-0.5" />
+              <Play className="h-4 w-4 sm:h-5 sm:w-5 text-orange-400 group-hover:text-orange-300 transition-colors ml-0.5" />
             )}
           </motion.button>
         </>
